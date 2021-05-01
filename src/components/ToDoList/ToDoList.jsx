@@ -1,10 +1,10 @@
+/* eslint-disable no-unused-expressions */
 import React from 'react';
 
 
 export class ToDoList extends React.Component {
 
      constructor(props){
-
           super(props);
           this.props = props;
           this.state = {
@@ -14,6 +14,7 @@ export class ToDoList extends React.Component {
                business: "",
                city: "",
                country: "",
+               empty: "",
                elements:[]
           }
      }
@@ -30,9 +31,15 @@ export class ToDoList extends React.Component {
           e.preventDefault();
           const { job, business, city, country } = this.state;
           const element = {job, business, city, country};
-          this.setState({
-               elements: [...this.state.elements, element],
-          })
+     
+          if ( job && business && city && country ){
+               this.setState({
+                    elements: [...this.state.elements, element],
+               })
+          }else{
+               alert("Debe completar todos los campos!.")
+          }
+          
      }
 
      deleteElement(key){
@@ -46,7 +53,7 @@ export class ToDoList extends React.Component {
      render(){
           return (
                <>
-                    <div className="row">
+               <div className="row">
 
                     <form className="row col-6 align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
                          <h5>Complete Datos</h5>
@@ -90,7 +97,7 @@ export class ToDoList extends React.Component {
 
                          <div className="row mt-3">
                               <div>
-                                   <button className="btn btn-primary" type="submit" >Agregar Cargo</button>
+                                   <button className="btn btn-primary" type="submit" >Agregar</button>
                               </div>
                          </div>
 
@@ -104,7 +111,7 @@ export class ToDoList extends React.Component {
                                    return <div className="card mb-2" key={ index }>
                                              <div className="card-body">
                                                   <h5 className="card-title">{ element.city } - en { element.country }</h5>
-                                                  <p className="card-text">{ element.job } en { element.business } --- { index }</p>
+                                                  <p className="card-text">{ element.job } en { element.business } </p>
                                                   <button onClick={ () => this.deleteElement(index) } 
                                                        className="btn btn-danger btn-sm">Eliminar
                                                   </button>
@@ -114,7 +121,7 @@ export class ToDoList extends React.Component {
                               }) }
                     </div>
 
-                    </div>
+               </div>
 
                </>
           )
