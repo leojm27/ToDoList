@@ -1,31 +1,24 @@
 import React from 'react';
+import { Navbar } from './components/Navbar/Navbar';
 import { ToDoList } from './components/ToDoList/ToDoList';
 
 
-//import './App.css';
-
-class App extends React.Component {
+function App(){
   
 
-  // eslint-disable-next-line no-useless-constructor
-  constructor(props){
-    // eslint-disable-next-line no-unused-expressions
-    super(props);
-    this.state = {
-      tasks: ['Aprende React', 'Aprender WebPack', 'Aprender Babel' ]
-    }
-  }
-
-  render(){
     return (
-      <div >
-  
-        <ToDoList  tasks={ this.state.tasks }/>
-  
-      </div>
-    );
-  }
+      <>
 
+        <Navbar />
+
+        <div className="container">
+          <ToDoList />
+        </div>
+
+
+      </>
+    );
+  
 }
 
 export default App;
