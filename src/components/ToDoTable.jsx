@@ -1,4 +1,5 @@
 import React from 'react';
+import DataBase from '../services/DataBase';
 
 export class ToDoTable extends React.Component {
 
@@ -6,20 +7,41 @@ export class ToDoTable extends React.Component {
     super(props);
     this.props = props;
     this.state = {
-         offers:[]
+         offers: [],
+         cities: []
     }
   }
      
 componentDidMount(){
+    //const cities = DataBase.retrieveAllCities();
+    //console.log(cities);
     if(localStorage.getItem("offers") != null){
 			this.setState({
                     offers: JSON.parse(localStorage.getItem("offers"))
             })
 		}
-
-    //console.log("que ondaa Offers");
-    //console.log(this.state.offers);
 }
+
+getOffer = (item) => {
+  //console.log(item);
+  console.log("prueba");
+  let id = parseInt(item.id_business);
+  console.log(this.props.business);
+  let businnes = this.props.business.find(e => e.id_business == id);
+  console.log(businnes);
+  //let city = this.props.cities.find(e => e.id_city == businnes.id_city);
+  //let country = this.props.countries.find(e => e.id_country == city.id_country);
+  //item.id_business = businnes.description;
+  //item.id_city = city.description;
+  //item.id_country = country.description; 
+  return item;
+  //console.log(this.props.cities);
+  //businnes = this.state.businessAll.find(e => e.id_business == id_business);
+  //city = this.state.cities.find(e => e.id_city == businnes.id_city);
+  //country = this.state.countries.find(e => e.id_country == city.id_country);
+
+}
+
 
 /*deleteElement = (key) => {
     console.log("eliminar: " + key);
@@ -33,7 +55,7 @@ componentDidMount(){
   render(){
           return (
             <>
-              <table className="table mt-3">
+              <table className="table">
                 <thead>
                   <tr>
                     <th scope="col">#</th>
@@ -47,14 +69,14 @@ componentDidMount(){
                 <tbody>
 
 
-                  { this.props.offers.map((offer, index) => { 
-
+                  { this.props.offers.map((item, index) => { 
+                  let offer = this.getOffer(item)
                   return <tr key={ index }>
                             <th scope="row">{ index + 1 }</th>
-                            <td>{ offer.job }</td>
-                            <td>{ offer.business }</td>
-                            <td>{ offer.country }</td>
-                            <td>{ offer.city }</td>
+                            <td>{ item.job }</td>
+                            <td>{ item.business }</td>
+                            <td>{ item.id_country }</td>
+                            <td>{ item.id_city }</td>
                             <td>
                               <button type="button" className="btn btn-primary btn-sm m-1">Editar</button>
                               <button type="button" className="btn btn-danger btn-sm m-1" onClick={ () => this.props.onDelete(index) }>Eliminar</button>

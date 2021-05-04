@@ -11,15 +11,17 @@ constructor(props){
     this.state = {
           business:[],
           citiesForCountry:[],
+          cities: [],
+          countries: [],
           /*business:[
              {id_business: 654654, description: "TSoft", id_city: 111111},
              {id_business: 648774, description: "IncluIT", id_city: 222222}],*/
-          countries:[
+          /*countries:[
                {id_country: 654654, description: "Argentina"},
                {id_country: 648774, description: "Brasil"},
-               {id_country: 445785, description: "España"}],
+               {id_country: 445785, description: "España"}],*/
 
-          cities:[
+          /*cities:[
                     {id_city: 787878, description: "La Rioja", id_country: 654654},
                     {id_city: 797979, description: "Cordoba", id_country: 654654},
                     {id_city: 727272, description: "Neuquen", id_country: 654654},
@@ -32,7 +34,7 @@ constructor(props){
                     {id_city: 878787, description: "Mayorca", id_country: 445785},
                     {id_city: 828282, description: "Coruña", id_country: 445785},
                     {id_city: 838383, description: "La Rioja", id_country: 445785},
-                    {id_city: 818181, description: "Sevilla", id_country: 445785},],
+                    {id_city: 818181, description: "Sevilla", id_country: 445785},],*/
 
           id_business: 0,
           description: "",
@@ -94,7 +96,8 @@ getCity = (e) => {
 
 submitForm = (e) => {
      e.preventDefault();
-     const { description, id_city } = this.state;
+     const id_city = parseInt(this.state.id_city);
+     const { description } = this.state;
      const id_business = Math.floor(Math.random() * 999999);
      const businessItem = {
           id_business , 
@@ -119,7 +122,7 @@ submitForm = (e) => {
 }
 
 deleteElement = (key) => {
-     console.log("eliminar: " + key);
+     //console.log("eliminar: " + key);
      const businessNew = this.state.business.filter((_, index) => index !== key);
      window.localStorage.setItem("business", JSON.stringify(businessNew))
      this.setState({
@@ -130,7 +133,7 @@ deleteElement = (key) => {
 render(){
           return (
             <>
-               <div className="row mt-3">
+               <div className="row">
                   
                     <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
                        <h5>Empresa</h5>
@@ -211,7 +214,10 @@ render(){
                     </form>
 
                     <div className="col">
-                         <ToDoTableItems business={ this.state.business } onDelete={ this.deleteElement} />
+                         <ToDoTableItems 
+                              business={ this.state.business } 
+                              onDelete={ this.deleteElement } 
+                              cities={ this.state.cities } />
                     </div>
 
              </div>

@@ -20,8 +20,7 @@ function App(){
           <Switch>
 
             <Route path="/" exact sensitive component={ Home } />
-            <Route path="/add" exact sensitive component={ Main } />
-            <Route path="/jobs" exact sensitive component={ ToDoTable } />
+            <Route path="/jobs" exact sensitive component={ Main } />
             <Route path="/jobs/:id" exact sensitive component={ ToDoTable } /> 
             <Route path="/business" exact sensitive component={ FormBusiness } /> 
 
@@ -30,6 +29,8 @@ function App(){
           </Switch>
 
         </div>
+
+        
 
       </>
     );
