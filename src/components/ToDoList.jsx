@@ -32,15 +32,13 @@ export class ToDoList extends React.Component {
      }
 
      formEmpty = () => {
-
           this.setState({
                id_job: "",
                job: "",
                business: "",
                city: "",
                country: ""
-          });
-          
+          }); 
      }
 
      handleForm = (e) => {
