@@ -1,5 +1,6 @@
 import React from 'react';
 import { ToDoList } from '../components/ToDoList';
+import DataBase from '../utils/DataBase';
 
 
 export class Main extends React.Component {
@@ -10,6 +11,10 @@ export class Main extends React.Component {
                elements: [],
                tasks: [],
           }
+     }
+
+     componentDidMount(){
+          
      }
      
      render(){

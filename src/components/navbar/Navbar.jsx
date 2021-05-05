@@ -29,11 +29,11 @@ export class Navbar extends React.Component {
                                    </li>
 
                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/">Paises</Link>
+                                        <Link className="nav-link" to="/country">Paises</Link>
                                    </li>
 
                                    <li className="nav-item">
-                                        <Link className="nav-link" to="/">Ciudades</Link>
+                                        <Link className="nav-link" to="/city">Ciudades</Link>
                                    </li>
                                    
                               </ul>

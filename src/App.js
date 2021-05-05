@@ -6,6 +6,8 @@ import { NotFoundView } from './views/NotFoundView'
 import { Route, Switch } from 'react-router-dom'
 import { ToDoTable } from './components/ToDoTable';
 import { FormBusiness } from './views/FormBusiness';
+import { CountryView } from './views/CountryView';
+import { CityView } from './views/CityView';
 
 
 function App(){
@@ -23,6 +25,8 @@ function App(){
             <Route path="/jobs" exact sensitive component={ Main } />
             <Route path="/jobs/:id" exact sensitive component={ ToDoTable } /> 
             <Route path="/business" exact sensitive component={ FormBusiness } /> 
+            <Route path="/country" exact sensitive component={ CountryView } /> 
+            <Route path="/city" exact sensitive component={ CityView } /> 
 
             <Route component={ NotFoundView } />
 

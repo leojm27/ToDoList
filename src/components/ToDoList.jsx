@@ -18,7 +18,7 @@ export class ToDoList extends React.Component {
                offers:[],
                businessAll:[],
                countries: [],
-               cities: [],
+               cities: null,
                citiesForCountry: [],
                id_city: 0,
                id_country: 0,
@@ -54,9 +54,6 @@ export class ToDoList extends React.Component {
           }
      }
      
-     /*saveData = (offers) =>{ 
-          window.localStorage.setItem("offers", JSON.stringify(offers));
-     }*/
 
      formEmpty = () => {
           this.setState({
@@ -111,32 +108,31 @@ export class ToDoList extends React.Component {
      submitForm = (e) => {
           e.preventDefault();
           const id_city = parseInt(this.state.id_city);
-          const { job, business, id_country } = this.state;
-          //const businessInt = parseInt(business);
-          //id_city = parseInt(id_city);
-          //id_country = parseInt(id_country);
-          let id_job = Math.floor(Math.random() * 999999);
+          const id_country = parseInt(this.state.id_country);
+          const business = parseInt(this.state.business);
+          const job = this.state.job;
+          const id_job = Math.floor(Math.random() * 999999);
+
           const offer = {id_job, job, business, id_city, id_country};
           let offersNew = [];
      
           if ( job && business != 0 && id_city != 0 && id_country != 0 ){
-
                offersNew = [...this.state.offers, offer];
                this.setState({
                     offers: offersNew,
                });
                window.localStorage.setItem("offers", JSON.stringify(offersNew));
                this.formEmpty();
+               console.log(offersNew);
           }else{
                alert("Debe completar todos los campos!.")
           }
 
           window.localStorage.setItem("offers", JSON.stringify(offersNew));
-
      }
 
      deleteElement = (key) => {
-          console.log("eliminar: " + key);
+          //console.log("eliminar: " + key);
           const offersNew = this.state.offers.filter((_, index) => index !== key);
           window.localStorage.setItem("offers", JSON.stringify(offersNew))
           this.setState({
@@ -219,10 +215,6 @@ export class ToDoList extends React.Component {
                               </div>
                          </div>
 
-                         
-
-                         
-
                          <div className="row mt-3">
                               <div>
                                    <button className="btn btn-primary" type="submit" >Agregar</button>
@@ -234,10 +226,10 @@ export class ToDoList extends React.Component {
                     
                     <div className="col">
                          <ToDoTable 
-                              offers = { this.state.offers } 
-                              cities = { this.state.cities } 
-                              business = { this.state.businessAll }
-                              countries = { this.state.countries } 
+                              offers = { (this.state.offers) ? this.state.offers : []  } 
+                              //cities = { (this.state.cities) ? this.state.cities : [] } 
+                              //business = { (this.state.businessAll) ? this.state.businessAll : [] }
+                              //countries = { (this.state.countries) ? this.state.countries : [] } 
                               onDelete = { this.deleteElement }/>
                     </div>
                     

@@ -1,5 +1,5 @@
 import React from 'react';
-import DataBase from '../services/DataBase';
+import DataBase from '../utils/DataBase';
 
 export class ToDoTable extends React.Component {
 
@@ -8,49 +8,61 @@ export class ToDoTable extends React.Component {
     this.props = props;
     this.state = {
          offers: [],
-         cities: []
+         cities: [],
+         business: [],
+         countries: []
     }
   }
      
 componentDidMount(){
-    //const cities = DataBase.retrieveAllCities();
-    //console.log(cities);
     if(localStorage.getItem("offers") != null){
 			this.setState({
                     offers: JSON.parse(localStorage.getItem("offers"))
             })
 		}
+
+          if(localStorage.getItem("business") != null){
+               this.setState({
+                    business: JSON.parse(localStorage.getItem("business"))
+               })
+          };
+     
+          if(localStorage.getItem("countries") != null){
+               this.setState({
+                    countries: JSON.parse(localStorage.getItem("countries"))
+               })
+          }
+     
+          if(localStorage.getItem("cities") != null){
+               this.setState({
+                    cities: JSON.parse(localStorage.getItem("cities"))
+               })
+          }
+
 }
 
 getOffer = (item) => {
-  //console.log(item);
-  console.log("prueba");
-  let id = parseInt(item.id_business);
-  console.log(this.props.business);
-  let businnes = this.props.business.find(e => e.id_business == id);
-  console.log(businnes);
-  //let city = this.props.cities.find(e => e.id_city == businnes.id_city);
-  //let country = this.props.countries.find(e => e.id_country == city.id_country);
-  //item.id_business = businnes.description;
-  //item.id_city = city.description;
-  //item.id_country = country.description; 
-  return item;
-  //console.log(this.props.cities);
-  //businnes = this.state.businessAll.find(e => e.id_business == id_business);
-  //city = this.state.cities.find(e => e.id_city == businnes.id_city);
-  //country = this.state.countries.find(e => e.id_country == city.id_country);
+  let idBusiness = parseInt(item.business);
+  let idCity = parseInt(item.id_city);
+  let idCountry = parseInt(item.id_country);
+  let businness = this.state.business.find(e => e.id_business == idBusiness);
+  if(businness == null){
+      businness = { description: "Sin asignar" };
+  } 
+  let city = this.state.cities.find(e => e.id_city == idCity);
+  if(city == null){
+      city = { description: "Sin asignar" };
+  }
+  let country = this.state.countries.find(e => e.id_country == idCountry);
+  const itemNames = { 
+                      businness: businness.description, 
+                      city: city.description, 
+                      country: country.description 
+                    };
+  return itemNames;
 
 }
 
-
-/*deleteElement = (key) => {
-    console.log("eliminar: " + key);
-    const offersNew = this.state.offers.filter((_, index) => index !== key);
-    window.localStorage.setItem("offers", JSON.stringify(offersNew))
-    this.setState({
-         offers: offersNew
-    })
-}*/
 
   render(){
           return (
@@ -68,22 +80,19 @@ getOffer = (item) => {
                 </thead>
                 <tbody>
 
-
                   { this.props.offers.map((item, index) => { 
                   let offer = this.getOffer(item)
                   return <tr key={ index }>
                             <th scope="row">{ index + 1 }</th>
                             <td>{ item.job }</td>
-                            <td>{ item.business }</td>
-                            <td>{ item.id_country }</td>
-                            <td>{ item.id_city }</td>
+                            <td>{ offer.businness }</td>
+                            <td>{ offer.country }</td>
+                            <td>{ offer.city }</td>
                             <td>
                               <button type="button" className="btn btn-primary btn-sm m-1">Editar</button>
                               <button type="button" className="btn btn-danger btn-sm m-1" onClick={ () => this.props.onDelete(index) }>Eliminar</button>
                             </td>
                         </tr>
-
-                        
                       
                   }) }
 

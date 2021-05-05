@@ -13,29 +13,6 @@ constructor(props){
           citiesForCountry:[],
           cities: [],
           countries: [],
-          /*business:[
-             {id_business: 654654, description: "TSoft", id_city: 111111},
-             {id_business: 648774, description: "IncluIT", id_city: 222222}],*/
-          /*countries:[
-               {id_country: 654654, description: "Argentina"},
-               {id_country: 648774, description: "Brasil"},
-               {id_country: 445785, description: "España"}],*/
-
-          /*cities:[
-                    {id_city: 787878, description: "La Rioja", id_country: 654654},
-                    {id_city: 797979, description: "Cordoba", id_country: 654654},
-                    {id_city: 727272, description: "Neuquen", id_country: 654654},
-                    {id_city: 767676, description: "Buenos Aires", id_country: 654654},
-                    {id_city: 161616, description: "San Pablo", id_country: 648774},
-                    {id_city: 151515, description: "Rio de Janeiro", id_country: 648774},
-                    {id_city: 131313, description: "Belo Horizonte", id_country: 648774},
-                    {id_city: 898989, description: "Barcelona", id_country: 445785},
-                    {id_city: 848484, description: "Madrid", id_country: 445785},
-                    {id_city: 878787, description: "Mayorca", id_country: 445785},
-                    {id_city: 828282, description: "Coruña", id_country: 445785},
-                    {id_city: 838383, description: "La Rioja", id_country: 445785},
-                    {id_city: 818181, description: "Sevilla", id_country: 445785},],*/
-
           id_business: 0,
           description: "",
           id_city: 0,
@@ -97,7 +74,7 @@ getCity = (e) => {
 submitForm = (e) => {
      e.preventDefault();
      const id_city = parseInt(this.state.id_city);
-     const { description } = this.state;
+     const description = this.state.description;
      const id_business = Math.floor(Math.random() * 999999);
      const businessItem = {
           id_business , 
@@ -107,7 +84,6 @@ submitForm = (e) => {
 
 
      if ( description && id_business && id_city !== 0 ){
-
           businessNew = [...this.state.business, businessItem];
           this.setState({
                business: businessNew,
@@ -215,9 +191,8 @@ render(){
 
                     <div className="col">
                          <ToDoTableItems 
-                              business={ this.state.business } 
-                              onDelete={ this.deleteElement } 
-                              cities={ this.state.cities } />
+                              business={ (this.state.business) ? this.state.business : (null) } 
+                              onDelete={ this.deleteElement }  />
                     </div>
 
              </div>
