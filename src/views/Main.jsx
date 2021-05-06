@@ -1,6 +1,5 @@
 import React from 'react';
-import { ToDoList } from '../components/ToDoList';
-import DataBase from '../utils/DataBase';
+import { OfferView } from './OfferView';
 
 
 export class Main extends React.Component {
@@ -12,16 +11,12 @@ export class Main extends React.Component {
                tasks: [],
           }
      }
-
-     componentDidMount(){
-          
-     }
      
-     render(){
+     render(){ 
           return (
             <>
 
-              <ToDoList />
+              <OfferView />
 
             </>
           );

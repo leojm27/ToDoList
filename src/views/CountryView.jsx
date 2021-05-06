@@ -1,4 +1,5 @@
 import React from 'react';
+import { CountryForm } from '../components/countryComponent/CountryForm';
 import { CountryTable } from '../components/countryComponent/CountryTable';
 
 
@@ -43,13 +44,30 @@ export class CountryView extends React.Component {
      }
   }
 
+  updateContries = (countriesNew) => {
+    this.setState({
+      countries: countriesNew,
+    });
+    window.localStorage.setItem("countries", JSON.stringify(countriesNew));
+  }
+
+  deleteElement = (key) => {
+    const countriesNew = this.state.countries.filter((_, index) => index !== key);
+    window.localStorage.setItem("countries", JSON.stringify(countriesNew))
+    this.setState({
+      countries: countriesNew
+    })
+  }
+
   render(){
       return (
             <div className="row">
               
               <div className="col">
               
-                <h5>form country</h5>
+                <CountryForm 
+                    countries={ (this.state.countries) ? this.state.countries : (null) } 
+                    onUpdate={ this.updateContries }/>
 
               </div>
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { CityForm } from '../components/cityComponent/CityForm';
 import { CityTable } from '../components/cityComponent/CityTable';
 
 export class CityView extends React.Component {
@@ -42,13 +43,31 @@ export class CityView extends React.Component {
      }
   }
 
+  updateCities = (citiesNew) => {
+    this.setState({
+          cities: citiesNew,
+    });
+    window.localStorage.setItem("cities", JSON.stringify(citiesNew));
+  }
+
+  deleteElement = (key) => {
+    //console.log("eliminar: " + key);
+    const citiesNew = this.state.cities.filter((_, index) => index !== key);
+    window.localStorage.setItem("cities", JSON.stringify(citiesNew))
+    this.setState({
+       cities: citiesNew
+    })
+  }
+
   render(){
       return (
             <div className="row">
               
               <div className="col">
               
-                <h5>form city</h5>
+                <CityForm 
+                    cities={ (this.state.cities) ? this.state.cities : (null) }
+                    onUpdate={ this.updateCities }/>
 
               </div>
 

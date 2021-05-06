@@ -41,7 +41,7 @@ componentDidMount(){
 
 }
 
-getOffer = (item) => {
+getOffer = (item) => { 
   let idBusiness = parseInt(item.business);
   let idCity = parseInt(item.id_city);
   let idCountry = parseInt(item.id_country);

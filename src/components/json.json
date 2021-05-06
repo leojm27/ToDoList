@@ -37,31 +37,28 @@
 *****************
 [
   {
-    "id_job": 617944,
-    "job": "Dev Jr",
-    "business": "691740",
-    "id_city": 797979,
-    "id_country": 654654
+    "description": "Argentina",
+    "id_country": 421189
   },
   {
-    "id_job": 594316,
-    "job": "Dev Jr",
-    "business": "691740",
-    "id_city": 797979,
-    "id_country": 654654
+    "description": "España",
+    "id_country": 431500
   },
   {
-    "id_job": 973044,
-    "job": "Dev Jrssss",
-    "business": "898988",
-    "id_city": 797979,
-    "id_country": 654654
+    "description": "Paraguay",
+    "id_country": 598106
+  }
+]
+
+[
+  {
+    "id_city": 939162,
+    "description": "La Rioja",
+    "id_country": 421189
   },
   {
-    "id_job": 870277,
-    "job": "Dev Jr",
-    "business": 299461,
-    "id_city": 787878,
-    "id_country": 654654
+    "id_city": 32892,
+    "description": "Sevilla",
+    "id_country": 431500
   }
 ]
