@@ -7,22 +7,22 @@ constructor(props){
     super(props);
     this.props = props;
     this.state = {
-        cities: [],
+        //cities: [],
         description: "",
         id_job: 0,
         job: "",
         business: 0,
         city: "",
         country: "",
-        empty: "",
-        offers:[],
-        businessAll:[],
-        countries: [],
-        citiesForCountry: [],
+        //empty: "",
+        //offers:[],
+        //businessAll:[],
+        //countries: [],
+        //citiesForCountry: [],
         id_city: 0,
         id_country: 0,
-        selectCountry: 0,
-        selectBusiness: 0
+        //selectCountry: 0,
+        //selectBusiness: 0
     }
 }
 

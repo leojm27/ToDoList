@@ -65,26 +65,38 @@ class DataBaseService {
 
     retrieveCities() {
         if(localStorage.getItem("cities") != null){
-            let cities =  JSON.parse(localStorage.getItem("cities"))
-            return cities;
+            let response =  JSON.parse(localStorage.getItem("cities"))
+            return response;
         } else {
             return null; 
         }  
     }
 
     retrieveCountries() {
-        let countries = [];      
-        return countries =  JSON.parse(localStorage.getItem("countries")); 
+        if(localStorage.getItem("countries") != null){
+            let response =  JSON.parse(localStorage.getItem("countries"))
+            return response;
+        } else {
+            return null; 
+        }  
     }
 
     retrieveBusiness() {
-        let business = [];      
-        return business =  JSON.parse(localStorage.getItem("business")); 
+        if(localStorage.getItem("business") != null){
+            let response =  JSON.parse(localStorage.getItem("business"))
+            return response;
+        } else {
+            return null; 
+        }  
     }
 
     retrieveOffers() {
-        let offers = [];      
-        return offers =  JSON.parse(localStorage.getItem("offers")); 
+        if(localStorage.getItem("offers") != null){
+            let response =  JSON.parse(localStorage.getItem("offers"))
+            return response;
+        } else {
+            return null; 
+        }  
     }
 
 }

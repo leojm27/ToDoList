@@ -47,7 +47,7 @@ export class CityView extends React.Component {
     this.setState({
           cities: citiesNew,
     });
-    window.localStorage.setItem("cities", JSON.stringify(citiesNew));
+    window.localStorage.setItem("cities", JSON.stringify(citiesNew)); 
   }
 
   deleteElement = (key) => {

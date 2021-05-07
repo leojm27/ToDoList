@@ -2,6 +2,8 @@
 import React from 'react';
 import { OfferForm } from '../components/offerComponent/OfferForm';
 import { ToDoTable } from '../components/ToDoTable';
+import { utils } from '../utils/Utils';
+
 
 
 export class OfferView extends React.Component {
@@ -15,21 +17,23 @@ export class OfferView extends React.Component {
                business: 0,
                city: "",
                country: "",
-               empty: "",
+               id_city: 0,
+               id_country: 0,
+               //empty: "",
                offers:[],
                businessAll:[],
                countries: [],
                cities: null,
                citiesForCountry: [],
-               id_city: 0,
-               id_country: 0,
-               selectCountry: 0,
-               selectBusiness: 0
+               
+               //selectCountry: 0,
+               //selectBusiness: 0
 
           }
      }
 
      componentDidMount(){
+          
           if(localStorage.getItem("offers") != null){
 			this.setState({
                     offers: JSON.parse(localStorage.getItem("offers"))

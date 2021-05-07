@@ -1,116 +1,89 @@
 import React from 'react';
-import { ToDoTableItems } from '../components/ToDoTableItems';
 
-
-export class FormBusiness extends React.Component {
+export class BusinessForm extends React.Component {
 
 constructor(props){
     super(props);
     this.props = props;
     this.state = {
-          business:[],
-          citiesForCountry:[],
-          cities: [],
           countries: [],
-          id_business: 0,
+          cities: [],
+          business: [],
           description: "",
-          id_city: 0,
-          message: "message",
-          selected: "",
-          selectCity: 0,
-          selectCountry: 0,
+          id_country: 0,
     }
 }
      
 componentDidMount(){
-     if(localStorage.getItem("business") != null){
-	     this.setState({
-               business: JSON.parse(localStorage.getItem("business"))
-          })
-     };
+    if(localStorage.getItem("countries") != null){
+        this.setState({
+              countries: JSON.parse(localStorage.getItem("countries"))
+         })
+    }
 
-     if(localStorage.getItem("countries") != null){
-	     this.setState({
-               countries: JSON.parse(localStorage.getItem("countries"))
-          })
-     }
-
-     if(localStorage.getItem("cities") != null){
-	     this.setState({
-               cities: JSON.parse(localStorage.getItem("cities"))
-          })
-     }
+    if(localStorage.getItem("cities") != null){
+        this.setState({
+              cities: JSON.parse(localStorage.getItem("cities"))
+         })
+    }
 }
 
 formEmpty = () => {
-     this.setState({
-          id_business: 0,
-          description: "",
-          id_city: 0,
-          selectCity: 0,
-          selectCountry: 0,
-          citiesForCountry:[],
-     }); 
+    this.setState({
+         id_business: 0,
+         description: "",
+         id_city: 0,
+         selectCity: 0,
+         id_country: 0,
+         citiesForCountry:[],
+    }); 
 }
 
 handleForm = (e) => {
-     e.preventDefault();
-     this.setState({
-          [e.target.name]: e.target.value,
-     });
+    e.preventDefault();
+    this.setState({
+         [e.target.name]: e.target.value,
+    });
 }
 
 getCity = (e) => {
-     e.preventDefault();
-     const selectCountry = e.target.value;
-     let array = this.state.cities;
-     let citiesNew = array.filter(item => item.id_country == selectCountry);
-     this.setState({
-          citiesForCountry: citiesNew,
-     });
+    e.preventDefault();
+    const id_country = e.target.value;
+    let array = this.state.cities;
+    let citiesNew = array.filter(item => item.id_country == id_country);
+    this.setState({
+         citiesForCountry: citiesNew,
+    });
 }
 
 submitForm = (e) => {
-     e.preventDefault();
-     const id_city = parseInt(this.state.id_city);
-     const description = this.state.description;
-     const id_business = Math.floor(Math.random() * 999999);
-     const businessItem = {
-          id_business , 
-          description, 
-          id_city };
-     let businessNew = [];
+    e.preventDefault();
+    const id_city = parseInt(this.state.id_city);
+    const id_country = parseInt(this.state.id_country);
+    const description = this.state.description;
+    const id_business = Math.floor(Math.random() * 999999);
+    const businessItem = {
+         id_business , 
+         description,
+         id_country,
+         id_city 
+    };
 
 
-     if ( description && id_business && id_city !== 0 ){
-          businessNew = [...this.state.business, businessItem];
-          this.setState({
-               business: businessNew,
-          });
-          window.localStorage.setItem("business", JSON.stringify(businessNew));
-          this.formEmpty();
-          console.log(businessNew);
-     }else{
-          alert("Debe completar todos los campos!.")
-     }
-     
-}
-
-deleteElement = (key) => {
-     //console.log("eliminar: " + key);
-     const businessNew = this.state.business.filter((_, index) => index !== key);
-     window.localStorage.setItem("business", JSON.stringify(businessNew))
-     this.setState({
-          business: businessNew
-     })
+    if ( description && id_business && id_city !== 0 && id_country != 0 ){
+         this.props.onUpdate(businessItem)
+         this.formEmpty();
+         console.log(businessItem);
+    }else{
+         alert("Debe completar todos los campos!.")
+    }
+    
 }
 
 render(){
           return (
             <>
-               <div className="row">
-                  
-                    <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
+                <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
                        <h5>Empresa</h5>
 
                        <div className="row">
@@ -129,11 +102,11 @@ render(){
                               </div>
                               <div>
                                    <select 
-                                   name="selectCountry"
-                                   value={this.state.selectCountry}
+                                   name="id_country"
+                                   value={this.state.id_country}
                                    onChange={(e) => {
                                         this.handleForm(e)
-                                        this.getCity(e)
+                                        this.getCity(e) // Utilizar Utils
                                    }} 
                                    className="form-select">
                                         <option value="0">Seleccionar</option>
@@ -186,15 +159,7 @@ render(){
                             </div>
                        </div>
 
-                    </form>
-
-                    <div className="col">
-                         <ToDoTableItems 
-                              business={ (this.state.business) ? this.state.business : (null) } 
-                              onDelete={ this.deleteElement }  />
-                    </div>
-
-             </div>
+                </form>
             </>
           );
      

@@ -1,5 +1,6 @@
 import React from 'react';
 import DataBase from '../utils/DataBase';
+import { utils } from '../utils/Utils';
 
 export class ToDoTable extends React.Component {
 
@@ -15,33 +16,33 @@ export class ToDoTable extends React.Component {
   }
      
 componentDidMount(){
-    if(localStorage.getItem("offers") != null){
+    /*if(localStorage.getItem("offers") != null){
 			this.setState({
                     offers: JSON.parse(localStorage.getItem("offers"))
             })
 		}
 
-          if(localStorage.getItem("business") != null){
+    if(localStorage.getItem("business") != null){
                this.setState({
                     business: JSON.parse(localStorage.getItem("business"))
                })
-          };
+    };
      
-          if(localStorage.getItem("countries") != null){
+    if(localStorage.getItem("countries") != null){
                this.setState({
                     countries: JSON.parse(localStorage.getItem("countries"))
                })
-          }
+    }
      
-          if(localStorage.getItem("cities") != null){
+    if(localStorage.getItem("cities") != null){
                this.setState({
                     cities: JSON.parse(localStorage.getItem("cities"))
                })
-          }
+    }*/
 
 }
 
-getOffer = (item) => { 
+/*getOffer = (item) => { 
   let idBusiness = parseInt(item.business);
   let idCity = parseInt(item.id_city);
   let idCountry = parseInt(item.id_country);
@@ -61,7 +62,7 @@ getOffer = (item) => {
                     };
   return itemNames;
 
-}
+}*/
 
 
   render(){
@@ -81,7 +82,8 @@ getOffer = (item) => {
                 <tbody>
 
                   { this.props.offers.map((item, index) => { 
-                  let offer = this.getOffer(item)
+                  //let offer = this.getOffer(item)
+                  let offer = utils.getFormOffer(item)
                   return <tr key={ index }>
                             <th scope="row">{ index + 1 }</th>
                             <td>{ item.job }</td>

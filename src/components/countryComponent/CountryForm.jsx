@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 export class CountryForm extends React.Component {
 
 constructor(props){
