@@ -7,7 +7,9 @@ constructor(props){
     this.state = {
          offers:[],
          cities: [],
-         countries: []
+         countries: [],
+         isRedirect: false,
+         index: ""
     }
 }
      
@@ -30,6 +32,13 @@ componentDidMount(){
     }
 }
 
+updateElementCountry(){
+  this.setState({
+      isRedirect: false,
+      index: ""
+  });
+}
+
 render(){
           return (
             <>
@@ -42,7 +51,7 @@ render(){
                     <th scope="col">Acciones</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody> 
 
                 { this.props.countries != null 
                 

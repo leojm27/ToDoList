@@ -50,7 +50,8 @@ const getFormOffer = (item) => {
     offerForm = { 
         city: cityDesc, 
         country: countryDesc,
-        business: businessDesc};
+        business: businessDesc
+    };
 
     return offerForm;
 };
@@ -62,19 +63,10 @@ const getCities = (id_country) => {
 };
 
 const getBusinessLocation = (id_business) => {
-    /*
-    city: "",
-    country: "",
-    id_city: 0,
-    id_country: 0,
-    */
-
     let business, city, country, cityDesc, countryDesc, businessDesc, id_country, id_city;
-
     business = businesses.find(e => e.id_business == id_business);
 
     if(business != null){
-
         city = cities.find(e => e.id_city == business.id_city);
         country = countries.find(e => e.id_country == business.id_country);
 
@@ -86,7 +78,6 @@ const getBusinessLocation = (id_business) => {
             id_city = 0;
         };
 
-
         if(country != null){ 
             countryDesc = country.description 
             id_country = parseInt(country.id_country); 
@@ -95,18 +86,13 @@ const getBusinessLocation = (id_business) => {
             id_country = 0; 
         };
         
-        
     } else { 
-
             cityDesc = "";
             id_city = 0;
             countryDesc = "";
             id_country = 0;
-            
     }
 
-
-        
     return business = {
         cityDesc,
         id_city,
@@ -115,7 +101,6 @@ const getBusinessLocation = (id_business) => {
     };
 
 }
-
 
 
 exports.utils = {

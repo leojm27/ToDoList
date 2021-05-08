@@ -13,7 +13,7 @@ constructor(props){
 }
      
 componentDidMount(){
-    console.log("soy DidMount");
+    console.log("DidMount cityTable");
     //this.props.onUpdate();
     // refresh cities
     //this.refreshCities(); 

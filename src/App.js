@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom';
 import { BusinessView } from './views/BusinessView';
 import { CountryView } from './views/CountryView';
 import { CityView } from './views/CityView';
+import { CountryUpdate } from './components/countryComponent/CountryUpdate';
 
 
 function App(){
@@ -21,10 +22,10 @@ function App(){
           <Switch>
 
             <Route path="/" exact sensitive component={ Home } />
-            <Route path="/jobs" exact sensitive component={ Main } />
-            {/*<Route path="/jobs/:id" exact sensitive component={ Main } />*/} 
+            <Route path="/jobs" exact sensitive component={ Main } /> 
             <Route path="/business" exact sensitive component={ BusinessView } /> 
-            <Route path="/country" exact sensitive component={ CountryView } /> 
+            <Route path="/country" exact sensitive component={ CountryView } />
+            <Route path="/country/:id" exact sensitive component={ CountryUpdate } /> 
             <Route path="/city" exact sensitive component={ CityView } /> 
 
             <Route component={ NotFoundView } />

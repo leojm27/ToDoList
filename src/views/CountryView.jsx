@@ -12,16 +12,14 @@ export class CountryView extends React.Component {
     this.props = props;
     this.state = {
           business:[],
-          citiesForCountry:[],
+          //citiesByCountry:[],
           cities: [],
           countries: [],
-          id_business: 0,
-          description: "",
-          id_city: 0,
-          message: "message",
-          selected: "",
-          selectCity: 0,
-          selectCountry: 0,
+          //id_business: 0,
+          //description: "",
+          //id_city: 0,
+          //message: "message",
+          //selected: ""
     }
   }
      
