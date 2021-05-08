@@ -1,8 +1,8 @@
 import React from 'react';
-import DataBase from '../utils/DataBase';
-import { utils } from '../utils/Utils';
+import DataBase from '../../utils/DataBase';
+import { utils } from '../../utils/Utils';
 
-export class ToDoTable extends React.Component {
+export class OfferTable extends React.Component {
 
   constructor(props){
     super(props);
@@ -39,6 +39,7 @@ componentDidMount(){
                     cities: JSON.parse(localStorage.getItem("cities"))
                })
     }*/
+    const ddd = utils
 
 }
 

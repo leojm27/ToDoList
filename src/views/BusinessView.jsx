@@ -1,6 +1,7 @@
 import React from 'react';
 import { BusinessForm } from '../components/businessComponent/BusinessForm';
 import { BusinessTable } from '../components/businessComponent/BusinessTable';
+import DataBase from '../utils/DataBase';
 
 export class BusinessView extends React.Component {
 
@@ -23,11 +24,11 @@ export class BusinessView extends React.Component {
      }
           
      componentDidMount(){
-          if(localStorage.getItem("business") != null){
+          /*if(localStorage.getItem("business") != null){
                this.setState({
                     business: JSON.parse(localStorage.getItem("business"))
                })
-          };
+          };*/
 
           /*if(localStorage.getItem("countries") != null){
                this.setState({
@@ -40,7 +41,15 @@ export class BusinessView extends React.Component {
                     cities: JSON.parse(localStorage.getItem("cities"))
                })
           }*/
+
+          this.refreshDB();
      }
+
+     refreshDB = () => {
+          this.setState({
+              business: DataBase.retrieveBusiness()
+          })
+        }
 
      updateBusiness = (businessItem) => {
           let businessNew = [...this.state.business, businessItem];

@@ -1,6 +1,7 @@
 import React from 'react';
 import { CityForm } from '../components/cityComponent/CityForm';
 import { CityTable } from '../components/cityComponent/CityTable';
+import DataBase from '../utils/DataBase';
 
 export class CityView extends React.Component {
      
@@ -24,7 +25,7 @@ export class CityView extends React.Component {
   }
      
   componentDidMount(){
-     if(localStorage.getItem("business") != null){
+     /*if(localStorage.getItem("business") != null){
 	     this.setState({
                business: JSON.parse(localStorage.getItem("business"))
           })
@@ -41,6 +42,28 @@ export class CityView extends React.Component {
                cities: JSON.parse(localStorage.getItem("cities"))
           })
      }
+     
+
+     this.setState({
+        business: DataBase.retrieveBusiness(),
+        countries: DataBase.retrieveCountries(),
+        cities: DataBase.retrieveCities(),
+        offers: DataBase.retrieveOffers()
+    })
+
+
+     
+     */
+
+    this.refreshDB();
+  }
+
+  refreshDB = () => {
+    this.setState({
+        business: DataBase.retrieveBusiness(),
+        countries: DataBase.retrieveCountries(),
+        cities: DataBase.retrieveCities()
+    })
   }
 
   updateCities = (citiesNew) => {
@@ -51,7 +74,6 @@ export class CityView extends React.Component {
   }
 
   deleteElement = (key) => {
-    //console.log("eliminar: " + key);
     const citiesNew = this.state.cities.filter((_, index) => index !== key);
     window.localStorage.setItem("cities", JSON.stringify(citiesNew))
     this.setState({
@@ -75,7 +97,8 @@ export class CityView extends React.Component {
               
                 <CityTable 
                     cities={ (this.state.cities) ? this.state.cities : (null) } 
-                    onDelete={ this.deleteElement }  />
+                    onDelete={ this.deleteElement }
+                    onUpdate={ this.updateCities }  />
 
               </div>
 

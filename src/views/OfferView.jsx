@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import { OfferForm } from '../components/offerComponent/OfferForm';
-import { ToDoTable } from '../components/ToDoTable';
-import { utils } from '../utils/Utils';
+import { OfferTable } from '../components/offerComponent/OfferTable';
+import DataBase from '../utils/DataBase';
 
 
 
@@ -33,30 +33,16 @@ export class OfferView extends React.Component {
      }
 
      componentDidMount(){
-          
-          if(localStorage.getItem("offers") != null){
-			this.setState({
-                    offers: JSON.parse(localStorage.getItem("offers"))
-            })
-		}
+          this.refreshDB();
+     }
 
-          if(localStorage.getItem("business") != null){
-               this.setState({
-                    businessAll: JSON.parse(localStorage.getItem("business"))
-               })
-          };
-     
-          if(localStorage.getItem("countries") != null){
-               this.setState({
-                    countries: JSON.parse(localStorage.getItem("countries"))
-               })
-          }
-     
-          if(localStorage.getItem("cities") != null){
-               this.setState({
-                    cities: JSON.parse(localStorage.getItem("cities"))
-               })
-          }
+     refreshDB = () => {
+          this.setState({
+               businessAll: DataBase.retrieveBusiness(),
+               countries: DataBase.retrieveCountries(),
+               cities: DataBase.retrieveCities(),
+               offers: DataBase.retrieveOffers()
+          })
      }
      
 
@@ -79,7 +65,7 @@ export class OfferView extends React.Component {
 		});
      }
 
-     getLocation = (e) => {
+     /*getLocation = (e) => {
           const id_business = e.target.value;
           let businnes, city, country;
           
@@ -106,7 +92,7 @@ export class OfferView extends React.Component {
                     id_country: 0,
                });
           }
-     }
+     }*/
 
      updateOffers = (offersNew) => {
           this.setState({
@@ -134,13 +120,12 @@ export class OfferView extends React.Component {
                               cities = { (this.state.cities) ? this.state.cities : []  }
                               countries = { (this.state.countries) ? this.state.countries : []  }
                               businessAll = { (this.state.businessAll) ? this.state.businessAll : []  }
-                              onUpdate = { this.updateOffers }
-                              onLocation = { this.getLocation }/>
+                              onUpdate = { this.updateOffers }/>
                     </div>
 
                     
                     <div className="col">
-                         <ToDoTable 
+                         <OfferTable 
                               offers = { (this.state.offers) ? this.state.offers : []  } 
                               onDelete = { this.deleteElement }/>
                     </div>

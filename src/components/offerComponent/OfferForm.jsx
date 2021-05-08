@@ -1,4 +1,5 @@
 import React from 'react';
+import { utils } from '../../utils/Utils';
 
 
 export class OfferForm extends React.Component {
@@ -7,22 +8,14 @@ constructor(props){
     super(props);
     this.props = props;
     this.state = {
-        //cities: [],
         description: "",
         id_job: 0,
         job: "",
         business: 0,
         city: "",
         country: "",
-        //empty: "",
-        //offers:[],
-        //businessAll:[],
-        //countries: [],
-        //citiesForCountry: [],
         id_city: 0,
-        id_country: 0,
-        //selectCountry: 0,
-        //selectBusiness: 0
+        id_country: 0
     }
 }
 
@@ -46,55 +39,44 @@ handleForm = (e) => {
 }
 
 getLocation = (e) => {
-    const id_business = e.target.value;
-    let businnes, city, country;
-    
-    if(parseInt(id_business) !== 0) {
+     const id_business = parseInt(e.target.value);
+     const business =  utils.getBusinessLocation(id_business);
 
-         businnes = this.props.businessAll.find(e => e.id_business == id_business);
-         city = this.props.cities.find(e => e.id_city == businnes.id_city);
-         country = this.props.countries.find(e => e.id_country == city.id_country);
-         const id_city = parseInt(city.id_city);
-         const id_country = parseInt(country.id_country);
+     this.setState({
+          city: business.cityDesc,
+          country: business.countryDesc ,
+          id_city: business.id_city ,
+          id_country: business.id_country ,
+     });
 
-         this.setState({
-              city: city.description,
-              country: country.description,
-              id_city: id_city,
-              id_country: id_country,
-         });
-         
-    } else {
-         this.setState({
-              city: "",
-              country: "",
-              id_city: 0,
-              id_country: 0,
-         });
-    }
 }
 
 submitForm = (e) => {
-    e.preventDefault();
-    const id_city = parseInt(this.state.id_city);
-    const id_country = parseInt(this.state.id_country);
-    const business = parseInt(this.state.business);
-    const job = this.state.job;
-    const id_job = Math.floor(Math.random() * 999999);
+     e.preventDefault();
+     const id_city = parseInt(this.state.id_city);
+     const id_country = parseInt(this.state.id_country);
+     const business = parseInt(this.state.business);
+     const city = this.state.city;
+     const country = this.state.country;
+     const job = this.state.job;
+     const id_job = Math.floor(Math.random() * 999999);
 
-    const offer = {id_job, job, business, id_city, id_country};
-    let offersNew = [];
+     const offer = {id_job, job, business, id_city, id_country};
+     let offersNew = [];
 
-    if ( job && business != 0 && id_city != 0 && id_country != 0 ){
+     if ( job && business != 0 && id_city != 0 && id_country != 0 ){
          offersNew = [...this.props.offers, offer];
          this.props.onUpdate(offersNew);
          this.formEmpty();
-         console.log(offersNew);
-    }else{
-         alert("Debe completar todos los campos!.")
-    }
+         console.log(offer);
+         //window.localStorage.setItem("offers", JSON.stringify(offersNew));
+     } else if(country == 'Sin asignar' || city == 'Sin asignar') { 
+          alert("Los datos de la Empresa estan incompletos. No es posible generar una Oferta Laboral."); 
+     } else {
+          alert("Complete los datos correctamente!") 
+     }
 
-    window.localStorage.setItem("offers", JSON.stringify(offersNew));
+    
 }
 
 render(){
@@ -127,7 +109,7 @@ render(){
                                    value={this.state.business}
                                    onChange={(e) => {
                                         this.handleForm(e)
-                                        this.getLocation(e)
+                                        this.getLocation(e) // utils
                                    }} 
                                    className="form-select">
                                         <option value="0">Seleccionar</option>

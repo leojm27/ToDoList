@@ -1,6 +1,7 @@
 import React from 'react';
 import { CountryForm } from '../components/countryComponent/CountryForm';
 import { CountryTable } from '../components/countryComponent/CountryTable';
+import DataBase from '../utils/DataBase';
 
 
 export class CountryView extends React.Component {
@@ -25,7 +26,7 @@ export class CountryView extends React.Component {
   }
      
   componentDidMount(){
-     if(localStorage.getItem("business") != null){
+     /*if(localStorage.getItem("business") != null){
 	     this.setState({
                business: JSON.parse(localStorage.getItem("business"))
           })
@@ -41,7 +42,17 @@ export class CountryView extends React.Component {
 	     this.setState({
                cities: JSON.parse(localStorage.getItem("cities"))
           })
-     }
+     }*/
+
+     this.refreshDB();
+  }
+
+  refreshDB = () => {
+    this.setState({
+        business: DataBase.retrieveBusiness(),
+        countries: DataBase.retrieveCountries(),
+        cities: DataBase.retrieveCities()
+    })
   }
 
   updateContries = (countriesNew) => {

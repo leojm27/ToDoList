@@ -1,6 +1,6 @@
 
 
-const business = [
+/*const business = [
     {id_business: 654654, description: "TSoft", id_city: 161616},
     {id_business: 648774, description: "IncluIT", id_city: 787878}];
    
@@ -26,7 +26,7 @@ const cities = [
 const offers = [
             {id_job: 121212, job: "Dev Jr Python", business: 691740, id_city: 797979, id_country: 654654},
             {id_job: 118118, job: "Dev SemiSenior JS", business: 691740, id_city: 848484, id_country: 445785},
-            {id_job: 161616, job: "Dev Senior Java", business: 691740, id_city: 818181, id_country: 445785}];
+            {id_job: 161616, job: "Dev Senior Java", business: 691740, id_city: 818181, id_country: 445785}];*/
 
 // cargar datos de prueba
 //window.localStorage.setItem("business", JSON.stringify(business));
@@ -68,7 +68,7 @@ class DataBaseService {
             let response =  JSON.parse(localStorage.getItem("cities"))
             return response;
         } else {
-            return null; 
+            return []; 
         }  
     }
 
@@ -77,7 +77,7 @@ class DataBaseService {
             let response =  JSON.parse(localStorage.getItem("countries"))
             return response;
         } else {
-            return null; 
+            return []; 
         }  
     }
 
@@ -86,7 +86,7 @@ class DataBaseService {
             let response =  JSON.parse(localStorage.getItem("business"))
             return response;
         } else {
-            return null; 
+            return []; 
         }  
     }
 
@@ -95,7 +95,7 @@ class DataBaseService {
             let response =  JSON.parse(localStorage.getItem("offers"))
             return response;
         } else {
-            return null; 
+            return []; 
         }  
     }
 

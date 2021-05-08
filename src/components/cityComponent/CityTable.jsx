@@ -13,17 +13,10 @@ constructor(props){
 }
      
 componentDidMount(){
-     /*if(localStorage.getItem("cities") != null){
-      this.setState({
-              cities: JSON.parse(localStorage.getItem("cities"))
-         })
-    }*/
-
-    /*if(localStorage.getItem("countries") != null){
-      this.setState({
-              countries: JSON.parse(localStorage.getItem("countries"))
-         })
-    }*/
+    console.log("soy DidMount");
+    //this.props.onUpdate();
+    // refresh cities
+    //this.refreshCities(); 
 }
 
 render(){

@@ -1,4 +1,5 @@
 import React from 'react';
+import { utils } from '../../utils/Utils';
 
 export class BusinessForm extends React.Component {
 
@@ -49,10 +50,8 @@ handleForm = (e) => {
 getCity = (e) => {
     e.preventDefault();
     const id_country = e.target.value;
-    let array = this.state.cities;
-    let citiesNew = array.filter(item => item.id_country == id_country);
     this.setState({
-         citiesForCountry: citiesNew,
+         citiesForCountry: utils.getCities(id_country)
     });
 }
 
@@ -106,7 +105,7 @@ render(){
                                    value={this.state.id_country}
                                    onChange={(e) => {
                                         this.handleForm(e)
-                                        this.getCity(e) // Utilizar Utils
+                                        this.getCity(e)
                                    }} 
                                    className="form-select">
                                         <option value="0">Seleccionar</option>

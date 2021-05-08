@@ -18,7 +18,7 @@ componentDidMount(){
                     business: JSON.parse(localStorage.getItem("business"))
             })
      }*/
-     if(localStorage.getItem("cities") != null){
+     /*if(localStorage.getItem("cities") != null){
       this.setState({
               cities: JSON.parse(localStorage.getItem("cities"))
          })
@@ -28,8 +28,10 @@ componentDidMount(){
       this.setState({
               countries: JSON.parse(localStorage.getItem("countries"))
          })
-    }
+    }*/
 }
+
+
 
 render(){
           return (
