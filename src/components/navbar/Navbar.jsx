@@ -20,7 +20,7 @@ export class Navbar extends React.Component {
 
                               <ul className="navbar-nav">
 
-                                   <li className="nav-item">
+                                   <li className="nav-item"> 
                                         <Link className="nav-link" to="/jobs">Ofertas Laborales</Link>
                                    </li>
 

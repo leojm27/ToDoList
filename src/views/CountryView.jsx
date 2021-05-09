@@ -8,13 +8,15 @@ export class CountryView extends React.Component {
      
 
   constructor(props){
-    super(props);
+    super(props); 
     this.props = props;
     this.state = {
           business:[],
           //citiesByCountry:[],
           cities: [],
           countries: [],
+          isRedirect: false,
+          indexToUpdate: ""
           //id_business: 0,
           //description: "",
           //id_city: 0,
@@ -84,7 +86,7 @@ export class CountryView extends React.Component {
               
                 <CountryTable 
                     countries={ (this.state.countries) ? this.state.countries : (null) } 
-                    onDelete={ this.deleteElement }  />
+                    onDelete={ this.deleteElement }/>
 
               </div>
 

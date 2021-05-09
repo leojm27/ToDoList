@@ -24,24 +24,6 @@ export class BusinessView extends React.Component {
      }
           
      componentDidMount(){
-          /*if(localStorage.getItem("business") != null){
-               this.setState({
-                    business: JSON.parse(localStorage.getItem("business"))
-               })
-          };*/
-
-          /*if(localStorage.getItem("countries") != null){
-               this.setState({
-                    countries: JSON.parse(localStorage.getItem("countries"))
-               })
-          }*/
-
-          /*if(localStorage.getItem("cities") != null){
-               this.setState({
-                    cities: JSON.parse(localStorage.getItem("cities"))
-               })
-          }*/
-
           this.refreshDB();
      }
 

@@ -44,7 +44,7 @@ render(){
                             <td>{ item.description }</td>
                             <td>{ country }</td>
                             <td>
-                              <button type="button" className="btn btn-primary btn-sm m-1">Editar</button>
+                              <button type="button" className="btn btn-info btn-sm m-1">Info</button>
                               <button type="button" className="btn btn-danger btn-sm m-1" onClick={ () => this.props.onDelete(index) }>Eliminar</button>
                             </td>
                         </tr>
