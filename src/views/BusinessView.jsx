@@ -1,52 +1,15 @@
 import React from 'react';
 import { BusinessForm } from '../components/businessComponent/BusinessForm';
 import { BusinessTable } from '../components/businessComponent/BusinessTable';
-import DataBase from '../utils/DataBase';
 
 export class BusinessView extends React.Component {
 
      constructor(props){
-     super(props);
-     this.props = props;
-     this.state = {
-               business:[],
-               citiesForCountry:[],
-               cities: [],
-               countries: [],
-               id_business: 0,
-               description: "",
-               id_city: 0,
-               id_country: 0,
-               message: "message",
-               selected: "",
-               selectCity: 0
-     }
-     }
-          
-     componentDidMount(){
-          this.refreshDB();
-     }
+          super(props);
+          this.props = props;
+          this.state = {
 
-     refreshDB = () => {
-          this.setState({
-              business: DataBase.retrieveBusiness()
-          })
-        }
-
-     updateBusiness = (businessItem) => {
-          let businessNew = [...this.state.business, businessItem];
-          this.setState({
-               business: businessNew,
-          });
-          window.localStorage.setItem("business", JSON.stringify(businessNew));
-     }
-
-     deleteElement = (key) => {
-          const businessNew = this.state.business.filter((_, index) => index !== key);
-          window.localStorage.setItem("business", JSON.stringify(businessNew))
-          this.setState({
-               business: businessNew
-          })
+          }
      }
 
      render(){
@@ -56,15 +19,17 @@ export class BusinessView extends React.Component {
                   
                     <div className="col">
                          <BusinessForm 
-                              business={ (this.state.business) ? this.state.business : (null) } 
-                              onUpdate={ this.updateBusiness }  />
+                              business={ this.props.business } 
+                              cities = { this.props.cities }
+                              countries = { this.props.countries }
+                              addBusiness = { this.props.addBusiness }/>
                     </div>
                     
 
                     <div className="col">
                          <BusinessTable 
-                              business={ (this.state.business) ? this.state.business : (null) } 
-                              onDelete={ this.deleteElement }  />
+                              business={ this.props.business } 
+                              onDelete={ this.props.onDelete }  />
                     </div>
 
              </div>

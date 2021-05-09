@@ -2,58 +2,52 @@ import React from 'react';
 
 export class CountryForm extends React.Component {
 
-constructor(props){
-    super(props);
-    this.props = props;
-    this.state = {
-          //countries: [],
-          cities: [],
-          description: "",
-          id_country: 0,
+    constructor(props){
+        super(props);
+        this.props = props;
+        this.state = {
+            description: "",
+            id_country: 0,
+        }
     }
-}
-     
-componentDidMount(){
-}
 
-formEmpty = () => {
-     this.setState({
-          description: "",
-          id_country: 0,
-     }); 
-}
-
-handleForm = (e) => {
-     e.preventDefault();
-     this.setState({
-          [e.target.name]: e.target.value,
-     });
-}
-
-submitForm = (e) => {
-    e.preventDefault();
-    const description = this.state.description;
-    const id_country = Math.floor(Math.random() * 999999);
-    const countryItem = {
-            description, 
-            id_country 
-    };
-    
-    let countriesNew = [];
-
-    if ( description && id_country != 0){
-
-        countriesNew = [...this.props.countries, countryItem];
-        this.props.onUpdate(countriesNew); 
-        this.formEmpty();
-        console.log(countriesNew);
-    }else{
-        alert("Debe completar todos los campos!.")
+    formEmpty = () => {
+        this.setState({
+            description: "",
+            id_country: 0,
+        }); 
     }
-     
-}
 
-render(){
+    handleForm = (e) => {
+        e.preventDefault();
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    }
+
+    submitForm = (e) => {
+        e.preventDefault();
+        const description = this.state.description;
+        const id_country = Math.floor(Math.random() * 999999);
+        const countryItem = {
+                description, 
+                id_country 
+        };
+        
+        let countriesNew = [];
+
+        if ( description && id_country != 0){
+
+            countriesNew = [...this.props.countries, countryItem];
+            this.props.addCountry(countriesNew);
+            this.formEmpty();
+            console.log(countriesNew);
+        }else{
+            alert("Debe completar todos los campos!.")
+        }
+    }
+
+    render(){
           return (
             <>
                 <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
@@ -80,6 +74,6 @@ render(){
             </>
           );
      
-}
+    }
      
 }

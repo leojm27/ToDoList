@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import DataBase from '../../utils/DataBase';
+import { utils } from '../../utils/Utils';
 
 export class CountryInfo extends React.Component {
 
@@ -13,47 +14,48 @@ constructor(props){
     }
 }
 
-render(){
+     render(){
 
-     let item = this.state.countries.find(e => e.id_country == this.state.index);
+          const item = this.state.countries.find(e => e.id_country == this.state.index);
+          const q = utils.getQuantityCities(item.id_country);
 
-     return (
-          <>
-          <table className="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Pais</th>
-                          <th scope="col">Cantidad Ciudades</th>
-                        </tr>
-                      </thead>
-                      <tbody> 
-
-                      { item != null 
-                      
-                      ? <tr key={ this.state.index }>
-                              <th scope="row"></th>
-                              <td>{ item.description }</td>
-                              <td> 50 </td> 
+          return (
+               <>
+               <table className="table">
+                    <thead>
+                         <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Pais</th>
+                              <th scope="col">Cantidad Ciudades</th>
                          </tr>
-                              
-                    : (null) }
+                    </thead>
+                    <tbody> 
 
-                      </tbody>
-          </table>
+                         { item != null 
+                         
+                         ? <tr key={ this.state.index }>
+                              <th scope="row">{ item.id_country}</th>
+                              <td>{ item.description }</td>
+                              <td>{ q }</td>  
+                         </tr>
+                                   
+                         : (null) }
+
+                    </tbody>
+               </table>
 
 
-          { (item == null) ? <h5 className="text-center">EL Pais de Id { this.state.index } no existe.</h5> : (null) }
-          
-          <div className="row mt-3">
-               <div>
-                    <Link className="btn btn-primary m-1" to="/country">Volver</Link>
+               { (item == null) ? <h5 className="text-center">El Pais de Id { this.state.index } no existe.</h5> : (null) }
+               
+               <div className="row mt-3">
+                    <div>
+                         <Link className="btn btn-primary m-1" to="/country">Volver</Link>
+                    </div>
                </div>
-          </div>
-          
-          </>
-     );
+               
+               </>
+          );
      
-}
+     }
      
 }

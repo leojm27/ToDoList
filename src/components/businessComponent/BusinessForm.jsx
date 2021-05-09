@@ -1,167 +1,151 @@
 import React from 'react';
-import { utils } from '../../utils/Utils';
 
 export class BusinessForm extends React.Component {
 
-constructor(props){
-    super(props);
-    this.props = props;
-    this.state = {
-          countries: [],
-          cities: [],
-          business: [],
+     constructor(props){
+          super(props);
+          this.state = {
+                    citiesByCountry: [],
+                    description: "",
+                    id_country: 0,
+                    id_city: 0
+          }
+     }
+
+     formEmpty = () => {
+     this.setState({
+          id_business: 0,
           description: "",
+          id_city: 0,
           id_country: 0,
-    }
-}
-     
-componentDidMount(){
-    if(localStorage.getItem("countries") != null){
-        this.setState({
-              countries: JSON.parse(localStorage.getItem("countries"))
-         })
-    }
+          citiesByCountry:[],
+     }); 
+     }
 
-    if(localStorage.getItem("cities") != null){
-        this.setState({
-              cities: JSON.parse(localStorage.getItem("cities"))
-         })
-    }
-}
+     handleForm = (e) => {
+          e.preventDefault();
+          this.setState({
+               [e.target.name]: e.target.value,
+          });
+     }
 
-formEmpty = () => {
-    this.setState({
-         id_business: 0,
-         description: "",
-         id_city: 0,
-         selectCity: 0,
-         id_country: 0,
-         citiesForCountry:[],
-    }); 
-}
+     getCity = (e) => {
+          e.preventDefault();
+          const id_country = parseInt(e.target.value);
+          this.setState({
+                    citiesByCountry: this.props.cities.filter(item => item.id_country == id_country)
+          });
+     }
 
-handleForm = (e) => {
-    e.preventDefault();
-    this.setState({
-         [e.target.name]: e.target.value,
-    });
-}
+     submitForm = (e) => {
+          e.preventDefault();
+          const id_city = parseInt(this.state.id_city);
+          const id_country = parseInt(this.state.id_country);
+          const description = this.state.description;
+          const id_business = Math.floor(Math.random() * 999999);
+          const businessItem = {
+               id_business , 
+               description,
+               id_country,
+               id_city 
+          };
 
-getCity = (e) => {
-    e.preventDefault();
-    const id_country = e.target.value;
-    this.setState({
-         citiesForCountry: utils.getCities(id_country)
-    });
-}
+          let businessNew = [];
 
-submitForm = (e) => {
-    e.preventDefault();
-    const id_city = parseInt(this.state.id_city);
-    const id_country = parseInt(this.state.id_country);
-    const description = this.state.description;
-    const id_business = Math.floor(Math.random() * 999999);
-    const businessItem = {
-         id_business , 
-         description,
-         id_country,
-         id_city 
-    };
+          if ( description && id_business && id_city !== 0 && id_country != 0 ){
 
+                    businessNew = [...this.props.business, businessItem];
+                    this.props.addBusiness(businessNew);
+                    this.formEmpty();
+                    console.log(businessItem);
+          }else{
+               alert("Debe completar todos los campos!.")
+          }
+     }
 
-    if ( description && id_business && id_city !== 0 && id_country != 0 ){
-         this.props.onUpdate(businessItem)
-         this.formEmpty();
-         console.log(businessItem);
-    }else{
-         alert("Debe completar todos los campos!.")
-    }
-    
-}
-
-render(){
+     render(){
           return (
-            <>
-                <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
-                       <h5>Empresa</h5>
+          <>
+               <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
+                    <h5>Empresa</h5>
 
-                       <div className="row">
-                            <div className="">
-                                 <label className="col-form-label">Nombre</label>
-                            </div>
-                            
-                            <div className="">
-                                 <input type="text" name="description" value={ this.state.description } className="form-control" onChange={(e) => this.handleForm(e)}/>
-                            </div>
-                       </div>
+                    <div className="row">
+                         <div className="">
+                              <label className="col-form-label">Nombre</label>
+                         </div>
+                              
+                         <div className="">
+                              <input type="text" name="description" value={ this.state.description } className="form-control" onChange={(e) => this.handleForm(e)}/>
+                         </div>
+                    </div>
 
-                       <div className="row">
-                              <div>
-                                   <label className=" col-form-label">Pais</label>
-                              </div>
-                              <div>
-                                   <select 
-                                   name="id_country"
-                                   value={this.state.id_country}
-                                   onChange={(e) => {
-                                        this.handleForm(e)
-                                        this.getCity(e)
-                                   }} 
-                                   className="form-select">
-                                        <option value="0">Seleccionar</option>
+                    <div className="row">
+                                   <div>
+                                        <label className=" col-form-label">Pais</label>
+                                   </div>
+                                   <div>
+                                        <select 
+                                        name="id_country"
+                                        value={this.state.id_country}
+                                        onChange={(e) => {
+                                             this.handleForm(e)
+                                             this.getCity(e)
+                                        }} 
+                                        className="form-select">
+                                             <option value="0">Seleccionar</option>
 
-                                        { this.state.countries != null
-                                                       
-                                        ? (
+                                             { this.props.countries != null
+                                                            
+                                             ? (
 
-                                        this.state.countries.map((item, index) => { 
-                                        return <option key={ index } value={ item.id_country }> 
-                                                       { item.description } 
-                                             </option>                
-                                        })
-                                        ) : (null) }
+                                             this.props.countries.map((item, index) => { 
+                                             return <option key={ index } value={ item.id_country }> 
+                                                            { item.description } 
+                                                  </option>                
+                                             })
+                                             ) : (null) }
 
-                                   </select>
-                              </div>
-                       </div>
+                                        </select>
+                                   </div>
+                         </div>
 
-                       <div className="row">
-                              <div>
-                                   <label className=" col-form-label">Ciudad</label>
-                              </div>
-                              <div>
-                                   <select 
+                    <div className="row">
+                         <div>
+                              <label className=" col-form-label">Ciudad</label>
+                         </div>
+                         <div>
+                              <select 
                                    name="id_city"
-                                   value={this.state.value} 
-                                   onChange={(e) => this.handleForm(e)} 
+                                   value={ this.state.value } 
+                                   onChange={ (e) => this.handleForm(e) } 
                                    className="form-select">
-                                        <option value="0">Seleccionar</option>
+                                   <option value="0">Seleccionar</option>
 
-                                        { this.state.citiesForCountry != null
-                                                       
-                                        ? (
+                                   { this.state.citiesByCountry != null
+                                                            
+                                   ? (
 
-                                        this.state.citiesForCountry.map((item, index) => { 
+                                        this.state.citiesByCountry.map((item, index) => { 
                                         return <option key={ index } value={ item.id_city }> 
                                                        { item.description } 
                                              </option>                
                                         })
-                                        ) : (null) }
+                                   ) : (null) }
 
-                                   </select>
-                              </div>
-                       </div>
+                              </select>
+                         </div>
+                    </div>
 
-                       <div className="row mt-3">
-                            <div>
-                                 <button className="btn btn-primary" type="submit" >Añadir</button>
-                            </div>
-                       </div>
+                    <div className="row mt-3">
+                         <div>
+                              <button className="btn btn-primary" type="submit" >Añadir</button>
+                         </div>
+                    </div>
 
-                </form>
-            </>
+               </form>
+          </>
           );
-     
-}
+          
+     }
      
 }
