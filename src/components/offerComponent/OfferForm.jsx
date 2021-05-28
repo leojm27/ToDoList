@@ -9,9 +9,11 @@ export class OfferForm extends React.Component {
           this.state = {
                id_job: 0,
                business: 0,
+               organization: 0,
                id_city: 0,
                id_country: 0,
                description: "",
+               position: "",
                job: "",
                city: "",
                country: ""
@@ -21,12 +23,14 @@ export class OfferForm extends React.Component {
      formEmpty = () => {
           this.setState({
                id_job: 0,
-               business: 0,
+               organization: 0,
                id_city: 0,
                id_country: 0,
+               position: "",
                job: "",
                city: "",
                country: "",
+               description: ""
           }); 
      }
 
@@ -38,7 +42,8 @@ export class OfferForm extends React.Component {
      }
 
      getLocation = (e) => {
-          const id_business = parseInt(e.target.value);
+          console.log("location");
+          /*const id_business = parseInt(e.target.value);
           const business =  utils.getBusinessLocation(id_business);
 
           this.setState({
@@ -46,34 +51,41 @@ export class OfferForm extends React.Component {
                country: business.countryDesc ,
                id_city: business.id_city ,
                id_country: business.id_country ,
-          });
+          });*/
      }
 
      submitForm = (e) => {
           e.preventDefault();
           const id_city = parseInt(this.state.id_city);
           const id_country = parseInt(this.state.id_country);
-          const business = parseInt(this.state.business);
-          const city = this.state.city;
-          const country = this.state.country;
-          const job = this.state.job;
-          const id_job = Math.floor(Math.random() * 999999);
+          const organizationId = parseInt(this.state.organization);
+          const position = this.state.position;
+          const description = this.state.description;
+          //const city = this.state.city;
+          //const country = this.state.country;
+          //const job = this.state.job;
+          //const id_job = Math.floor(Math.random() * 999999);
 
-          const offer = {id_job, job, business, id_city, id_country};
-          let offersNew = [];
+          const offer = {
+               position, 
+               description, 
+               organizationId
+          };
 
-          if ( job && business != 0 && id_city != 0 && id_country != 0 ){
+          //let offersNew = [];
 
-          offersNew = [...this.props.offers, offer];
-          this.props.addOffers(offersNew);
+          if ( description && position && organizationId != 0 ){
+
+          //offersNew = [...this.props.offers, offer];
+          this.props.addOffers(offer);
           this.formEmpty();
           console.log(offer); 
 
-          } else if(country == 'Sin asignar' || city == 'Sin asignar') { 
+          } /*else if(country == 'Sin asignar' || city == 'Sin asignar') { 
 
                alert("Los datos de la Empresa son incompletos. No es posible generar una Oferta Laboral."); 
 
-          } else {
+          } */else {
 
                alert("Complete los datos correctamente!") 
                
@@ -90,12 +102,24 @@ export class OfferForm extends React.Component {
 
                          <div className=" row">
                               <div className="">
-                                   <label className="col-form-label">Puesto de Trabajo</label>
+                                   <label className="col-form-label">Posición Laboral</label>
                               </div>
                               
                               <div className="">
-                                   <input type="text" name="job" 
-                                        value={ this.state.job } className="form-control" 
+                                   <input type="text" name="position" 
+                                        value={ this.state.position } className="form-control" 
+                                        onChange={(e) => this.handleForm(e)}/>
+                              </div>
+                         </div>
+
+                         <div className=" row">
+                              <div className="">
+                                   <label className="col-form-label">Descripción</label>
+                              </div>
+                              
+                              <div className="">
+                                   <input type="text" name="description" 
+                                        value={ this.state.description } className="form-control" 
                                         onChange={(e) => this.handleForm(e)}/>
                               </div>
                          </div>
@@ -106,8 +130,8 @@ export class OfferForm extends React.Component {
                               </div>
                               <div>
                                    <select 
-                                   name="business"
-                                   value={this.state.business}
+                                   name="organization"
+                                   value={this.state.organization}
                                    onChange={(e) => {
                                         this.handleForm(e)
                                         this.getLocation(e)
@@ -115,13 +139,13 @@ export class OfferForm extends React.Component {
                                    className="form-select">
                                         <option value="0">Seleccionar</option>
 
-                                        { this.props.businessAll != null
+                                        { this.props.organizations != null
                                                        
                                         ? (
 
-                                        this.props.businessAll.map((item, index) => { 
-                                        return <option key={ index } value={ item.id_business }> 
-                                                       { item.description } 
+                                        this.props.organizations.map((item, index) => { 
+                                        return <option key={ index } value={ item.id }> 
+                                                       { item.name } 
                                              </option>                
                                         })
                                         ) : (null) }

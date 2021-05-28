@@ -27,23 +27,16 @@ export class CountryForm extends React.Component {
 
     submitForm = (e) => {
         e.preventDefault();
-        const description = this.state.description;
-        const id_country = Math.floor(Math.random() * 999999);
+        const name = this.state.description;
         const countryItem = {
-                description, 
-                id_country 
+            name
         };
-        
-        let countriesNew = [];
 
-        if ( description && id_country != 0){
-
-            countriesNew = [...this.props.countries, countryItem];
-            this.props.addCountry(countriesNew);
+        if (name.length >= 4){
+            this.props.addCountry(countryItem);
             this.formEmpty();
-            console.log(countriesNew);
         }else{
-            alert("Debe completar todos los campos!.")
+            alert("Debe completar el campo nombre. (minimo 4 caracteres).")
         }
     }
 

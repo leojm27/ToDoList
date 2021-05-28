@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { utils } from '../../utils/Utils';
 
 export class CountryTable extends React.Component {
 
@@ -23,16 +22,18 @@ export class CountryTable extends React.Component {
           return (
             <>
                 {
+                  
                 (this.state.isRedirect == true)
                 
                 ? <Redirect to={`/country/${this.state.index}`} />
+
                 
-                : <table className="table">
+                
+                : (<table className="table">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
                           <th scope="col">Pais</th>
-                          <th scope="col">Cantidad Ciudades</th>
                           <th scope="col">Acciones</th>
                         </tr>
                       </thead>
@@ -41,19 +42,18 @@ export class CountryTable extends React.Component {
                       { this.props.countries != null 
                       
                       ? (this.props.countries.map((item, index) => {
-                        const q = utils.getQuantityCities(item.id_country);
-                        return <tr key={ index }>
-                                  <th scope="row">{ index + 1 }</th>
-                                  <td>{ item.description }</td>
-                                  <td>{ q }</td> 
+                        //const q = utils.getQuantityCities(item.id_country);
+                        return <tr key={ item.id }>
+                                  <th scope="row">{ item.id }</th>
+                                  <td>{ item.name }</td>
                                   <td>
                                     <button type="button" className="btn btn-info btn-sm m-1" 
                                           onClick={
-                                              () => this.infoCountry(item.id_country)
+                                              () => this.infoCountry(item.id)
                                           }>Info</button>
                                     <button type="button" className="btn btn-danger btn-sm m-1" 
                                           onClick={ 
-                                            () => this.props.onDelete(index) 
+                                            () => this.props.onDelete(item.id) 
                                           }>Eliminar</button>
                                   </td>
                               </tr>
@@ -62,7 +62,7 @@ export class CountryTable extends React.Component {
                       ) : (null) }
 
                       </tbody>
-                  </table>
+                  </table>)
                 }
             </>
           ); 

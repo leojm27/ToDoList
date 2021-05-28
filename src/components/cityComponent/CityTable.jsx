@@ -42,16 +42,16 @@ export class CityTable extends React.Component {
                       ? (
 
                       this.props.cities.map((item, index) => {
-                      let country = this.props.countries.find(e => e.id_country == item.id_country)?.description 
+                      
                       return <tr key={ index }>
-                                  <th scope="row">{ index + 1 }</th>
-                                  <td>{ item.description }</td>
-                                  <td>{ (country) ? country : 'Sin asignar' }</td>
+                                  <th scope="row">{ item.id }</th>
+                                  <td>{ item.name }</td>
+                                  <td>{ (item.countrie.name) ? item.countrie.name : 'Sin asignar' }</td>
                                   <td>
                                     <button type="button" className="btn btn-info btn-sm m-1" onClick={
-                                                    () => this.infoCity(item.id_city)
+                                                    () => this.infoCity(item.id)
                                                 }>Info</button>
-                                    <button type="button" className="btn btn-danger btn-sm m-1" onClick={ () => this.props.onDelete(index) }>Eliminar</button>
+                                    <button type="button" className="btn btn-danger btn-sm m-1" onClick={ () => this.props.onDelete(item.id) }>Eliminar</button>
                                   </td>
                               </tr>
                             

@@ -1,4 +1,5 @@
 import React from 'react';
+import dataBaseService from '../../services/dataBaseService';
 
 export class CityForm extends React.Component {
 
@@ -11,7 +12,7 @@ export class CityForm extends React.Component {
                     id_country: 0,
           }
      }
-
+     
      formEmpty = () => {
           this.setState({
                id_city: 0,
@@ -29,29 +30,25 @@ export class CityForm extends React.Component {
 
      submitForm = (e) => {
           e.preventDefault();
-          const id_country = parseInt(this.state.id_country);
-          const description = this.state.description;
-          const id_city = Math.floor(Math.random() * 999999);
-          const cityItem = {
-                    id_city, 
-                    description, 
-                    id_country 
+          const countrieId = parseInt(this.state.id_country);
+          const name = this.state.description;
+          const city = {
+                    name,
+                    countrieId 
           };
-          
-          let citiesNew = [];
 
-          if ( description && id_country != 0 && id_city !== 0 ){
+          if ( name.length >= 4 && countrieId != 0 ){
 
-               citiesNew = [...this.props.cities, cityItem];
-               this.props.addCity(citiesNew);
+               this.props.addCity(city);
                this.formEmpty();
-               console.log(cityItem);
+               console.log(city);
           }else{
-               alert("Debe completar todos los campos!.")
+               alert("Debe completar todos los campos! (nombre minimo 4 caracteres).")
           }
      }
 
      render(){
+
           return (
           <>
                <form className="row col align-items-start align-self-start"  onSubmit={(e) => this.submitForm(e)}>
@@ -86,8 +83,8 @@ export class CityForm extends React.Component {
                                    ? (
 
                                    this.props.countries.map((item, index) => { 
-                                   return <option key={ index } value={ item.id_country }> 
-                                             { item.description } 
+                                   return <option key={ index } value={ item.id }> 
+                                             { item.name } 
                                         </option>                
                                    })
                                    ) : (null) }

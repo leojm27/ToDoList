@@ -1,57 +1,65 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import DataBase from '../../utils/DataBase';
-import { utils } from '../../utils/Utils';
+import dataBaseService from '../../services/dataBaseService';
 
 export class CityInfo extends React.Component {
 
-     constructor(props){
-     super(props);
-     this.state = {
-          description: "",
-          cities: DataBase.retrieveCities(),
-          index: this.props.match.params.id,
-     }
+     constructor(props) {
+          super(props);
+          this.state = {
+               city: null,
+               success: true,
+               index: this.props.match.params.id,
+          }
      }
 
-     render(){
-          let item = this.state.cities.find(e => e.id_city == this.state.index);
-          let country = utils.getFormCity(item);
+     componentDidMount = async () => {
+          await dataBaseService.getCityById(this.state.index)
+               .then(response => this.setState({
+                    city: response.data,
+               }))
+               .catch(() => this.setState({
+                    success: false,
+               }))
+     }
+
+     render() {
 
           return (
                <>
-               <table className="table">
-                    <thead>
-                         <tr>
-                              <th scope="col">ID</th>
-                              <th scope="col">Ciudad</th>
-                              <th scope="col">Pais</th>
-                         </tr>
-                    </thead>
-                    <tbody>
-                         { item != null 
-                              
-                         ? <tr key={ item.id_city }>
-                              <th scope="row">{ item.id_city }</th>
-                              <td>{ item.description }</td>
-                              <td>{ country }</td>
-                         </tr>
-                                        
-                         : (null) }
-                              
-                    </tbody>
-               </table>
+                    <table className="table">
+                         <thead>
+                              <tr>
+                                   <th scope="col">ID</th>
+                                   <th scope="col">Ciudad</th>
+                                   <th scope="col">Pais</th>
+                              </tr>
+                         </thead>
+                         <tbody>
+                              {this.state.city != null
 
-               { (item == null) ? <h5 className="text-center">La Ciudad de Id { this.state.index } no existe.</h5> : (null) }
-               
-               <div className="row mt-3">
-                    <div>
-                         <Link className="btn btn-primary m-1" to="/city">Volver</Link>
+                                   ? <tr key={this.state.city.id}>
+                                        <th scope="row">{this.state.city.id}</th>
+                                        <td>{this.state.city.name}</td>
+                                        <td>{this.state.city.countrie.name}</td>
+                                   </tr>
+
+                                   :
+                                   (!this.state.success)
+                                        ? (<tr><td colSpan="3" className="text-center">La Ciudad con ID {this.state.index} no existe.</td></tr>)
+                                        : (<tr><td colSpan="3" className="text-center">Cargando resultados...</td></tr>)}
+
+                         </tbody>
+                    </table>
+
+                    <div className="row mt-3">
+                         <div>
+                              <Link className="btn btn-primary m-1" to="/city">Volver</Link>
+                         </div>
                     </div>
-               </div>
                </>
           );
-          
+
      }
-     
+
 }
