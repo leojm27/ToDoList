@@ -16,7 +16,7 @@ export class CountryView extends React.Component {
     }
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.refresh();
   }
 
@@ -33,7 +33,7 @@ export class CountryView extends React.Component {
       .then(() => this.setState({
         message: `El País con ID ${key} se elimino correctamente.`,
         success: true
-      })) 
+      }))
       .catch(() => this.setState({
         message: `No es posible eliminar el País con ID ${key}.`,
         success: false
@@ -62,7 +62,7 @@ export class CountryView extends React.Component {
       <>
         <div className="row">
 
-          {(this.state.message == "")
+          {(this.state.message === "")
             ? (null)
             : (this.state.success)
               ? (<div className="alert alert-info" role="alert">

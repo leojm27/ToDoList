@@ -17,7 +17,7 @@ export class BusinessView extends React.Component {
           }
      }
 
-     componentDidMount() {
+     componentDidMount = () => {
           this.refresh();
      }
 
@@ -30,7 +30,7 @@ export class BusinessView extends React.Component {
 
           await dataBaseService.getAllCities()
                .then(response => this.setState({
-                    cities: response.data 
+                    cities: response.data
                }))
                .catch(err => console.log(err))
 
@@ -57,8 +57,7 @@ export class BusinessView extends React.Component {
      }
 
      addOrganization = async (organization) => {
-          
-          //console.log(organization);
+
           await dataBaseService.createOrganization(organization)
                .then(() => this.setState({
                     message: `La Empresa ${organization.name} se creo correctamente.`,
@@ -78,7 +77,7 @@ export class BusinessView extends React.Component {
 
                     <div className="row">
 
-                         {(this.state.message == "")
+                         {(this.state.message === "")
                               ? (null)
                               : (this.state.success)
                                    ? (<div className="alert alert-info" role="alert">
@@ -90,7 +89,7 @@ export class BusinessView extends React.Component {
 
 
                     </div>
-                    
+
                     <div className="row">
 
                          <div className="col-4">

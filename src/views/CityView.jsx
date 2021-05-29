@@ -20,7 +20,7 @@ export class CityView extends React.Component {
     this.refresh();
   }
 
-  refresh = async () => { 
+  refresh = async () => {
     await dataBaseService.getAllCountries()
       .then(response => this.setState({
         countries: response.data
@@ -68,7 +68,7 @@ export class CityView extends React.Component {
       <>
         <div className="row">
 
-          {(this.state.message == "")
+          {(this.state.message === "")
             ? (null)
             : (this.state.success)
               ? (<div className="alert alert-info" role="alert">

@@ -7,7 +7,6 @@ export class CountryInfo extends React.Component {
      constructor(props) {
           super(props);
           this.state = {
-               done: false,
                success: true,
                country: null,
                index: this.props.match.params.id,
@@ -18,8 +17,7 @@ export class CountryInfo extends React.Component {
           await dataBaseService.getCountryById(this.state.index)
                .then(response => this.setState({
                     country: response.data,
-
-               }))
+               })) 
                .catch(() => this.setState({
                     success: false,
                }))
@@ -33,22 +31,19 @@ export class CountryInfo extends React.Component {
                               <tr>
                                    <th scope="col">#</th>
                                    <th scope="col">Pais</th>
-                                   <th scope="col">Cantidad Ciudades</th>
                               </tr>
                          </thead>
                          <tbody>
-                              {this.state.country != null
+                              { (this.state.country != null)
 
                                    ? <tr key={this.state.index}>
                                         <th scope="row">{this.state.country.id}</th>
                                         <td>{this.state.country.name}</td>
-                                        <td>{this.state.country.id}</td>
                                    </tr>
 
-                                   :
-                                   (!this.state.success)
-                                        ? (<tr><td colSpan="3" className="text-center">El Pais con ID {this.state.index} no existe.</td></tr>)
-                                        : (<tr><td colSpan="3" className="text-center">Cargando resultados...</td></tr>)
+                                   :(!this.state.success)
+                                        ? (<tr><td colSpan="2" className="text-center">El Pais con ID {this.state.index} no existe.</td></tr>)
+                                        : (<tr><td colSpan="2" className="text-center">Cargando resultados...</td></tr>)
 
                               }
                          </tbody>

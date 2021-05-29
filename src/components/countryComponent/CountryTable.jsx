@@ -23,11 +23,9 @@ export class CountryTable extends React.Component {
             <>
                 {
                   
-                (this.state.isRedirect == true)
+                (this.state.isRedirect === true)
                 
                 ? <Redirect to={`/country/${this.state.index}`} />
-
-                
                 
                 : (<table className="table">
                       <thead>
@@ -42,7 +40,6 @@ export class CountryTable extends React.Component {
                       { this.props.countries != null 
                       
                       ? (this.props.countries.map((item, index) => {
-                        //const q = utils.getQuantityCities(item.id_country);
                         return <tr key={ item.id }>
                                   <th scope="row">{ item.id }</th>
                                   <td>{ item.name }</td>

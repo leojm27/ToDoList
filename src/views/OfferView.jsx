@@ -18,7 +18,7 @@ export class OfferView extends React.Component {
           }
      }
 
-     componentDidMount() {
+     componentDidMount = () => {
           this.refresh();
      }
 
@@ -41,7 +41,6 @@ export class OfferView extends React.Component {
                }))
                .catch(err => console.log(err))
 
-          //  
           await dataBaseService.getAllJobs()
                .then(response => this.setState({
                     offers: response.data
@@ -67,7 +66,6 @@ export class OfferView extends React.Component {
 
      addOffers = async (offer) => {
 
-          //console.log(offer);
           await dataBaseService.createJob(offer)
                .then(() => this.setState({
                     message: `La Oferta Laboral "${offer.position}" se creo correctamente.`,
@@ -87,7 +85,7 @@ export class OfferView extends React.Component {
 
                     <div className="row">
 
-                         {(this.state.message == "")
+                         {(this.state.message === "")
                               ? (null)
                               : (this.state.success)
                                    ? (<div className="alert alert-info" role="alert">
@@ -100,7 +98,7 @@ export class OfferView extends React.Component {
 
                     </div>
 
-                    <div className="row"> 
+                    <div className="row">
 
                          <div className="col-4">
                               <OfferForm

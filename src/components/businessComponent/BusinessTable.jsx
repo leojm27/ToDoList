@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 export class BusinessTable extends React.Component {
 
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       isRedirect: false,
       index: ""
@@ -18,11 +18,22 @@ export class BusinessTable extends React.Component {
     })
   }
 
+  getCountry(countrieId) {
+    let country = null;
+    if (this.props.countries != null) {
+      const countryTemp = this.props.countries.filter(e => e.id == countrieId);
+      if (countryTemp != null) {
+        country = countryTemp[0].name;
+      }
+    }
+    return country;
+  }
+
   render() {
     return (
       <>
         {
-          (this.state.isRedirect == true)
+          (this.state.isRedirect === true)
 
             ? <Redirect to={`/business/${this.state.index}`} />
 
@@ -43,12 +54,12 @@ export class BusinessTable extends React.Component {
                   ? (
 
                     this.props.organizations.map((item, index) => {
-                      const country = this.props.countries.filter(e => e.id == item.place.countrieId);
+                      let country = this.getCountry(item.place.countrieId);
                       return <tr key={index}>
                         <th scope="row">{item.id}</th>
-                        <td>{item.name}</td>
-                        <td>{country[0].name}</td>
-                        <td>{item.place.name}</td>
+                        <td>{ item.name }</td>
+                        <td>{ (country != null) ? country : 'Sin asignar' }</td>
+                        <td>{ item.place.name }</td>
                         <td>
                           <button type="button" className="btn btn-info btn-sm m-1"
                             onClick={() => this.infoBusiness(item.id)}>Info</button>

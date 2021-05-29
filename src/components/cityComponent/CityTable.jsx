@@ -22,7 +22,7 @@ export class CityTable extends React.Component {
           return (
             <>
               {
-                (this.state.isRedirect == true)
+                (this.state.isRedirect === true)
                 
                 ? <Redirect to={`/city/${this.state.index}`} />
                 

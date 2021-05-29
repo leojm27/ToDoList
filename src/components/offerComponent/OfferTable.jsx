@@ -22,7 +22,7 @@ export class OfferTable extends React.Component {
     return (
       <>
         {
-          (this.state.isRedirect == true)
+          (this.state.isRedirect === true)
 
             ? <Redirect to={`/jobs/${this.state.index}`} />
 
@@ -33,7 +33,6 @@ export class OfferTable extends React.Component {
                   <th scope="col">Posición</th>
                   <th scope="col">Descripción</th>
                   <th scope="col">Empresa</th>
-                  <th scope="col">Ciudad</th>
                   <th scope="col">Acciones</th>
                 </tr>
               </thead>
@@ -44,16 +43,11 @@ export class OfferTable extends React.Component {
 
                     this.props.offers.map((item, index) => {
 
-                      let city = null;
-                      if (item.organization != null) {
-                        city = this.props.cities.filter(e => e.id == item.organization.placeId);
-                      }
                       return <tr key={index}>
                         <th scope="row">{item.id}</th>
-                        <td>{ item.position} </td>
-                        <td>{ item.description} </td>
-                        <td>{ (item.organization != null) ? item.organization.name : 'Sin asignar'} </td>
-                        <td>{ (city != null) ? city[0].name : 'Sin asignar'} </td>
+                        <td>{item.position} </td>
+                        <td>{item.description} </td>
+                        <td>{(item.organization != null) ? item.organization.name : 'Sin asignar'} </td>
                         <td>
                           <button type="button" className="btn btn-info btn-sm m-1"
                             onClick={

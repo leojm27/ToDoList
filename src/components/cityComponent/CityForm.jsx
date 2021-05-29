@@ -1,5 +1,4 @@
 import React from 'react';
-import dataBaseService from '../../services/dataBaseService';
 
 export class CityForm extends React.Component {
 
@@ -37,7 +36,7 @@ export class CityForm extends React.Component {
                     countrieId 
           };
 
-          if ( name.length >= 4 && countrieId != 0 ){
+          if ( name.length >= 4 && countrieId !== 0 ){
 
                this.props.addCity(city);
                this.formEmpty();

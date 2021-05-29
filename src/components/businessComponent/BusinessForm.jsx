@@ -5,7 +5,7 @@ export class BusinessForm extends React.Component {
      constructor(props) {
           super(props);
           this.state = {
-               citiesByCountry: [], // checar
+               citiesByCountry: [],
                description: "",
                id_country: 0,
                id_city: 0
