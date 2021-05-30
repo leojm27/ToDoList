@@ -51,7 +51,6 @@ export class BusinessForm extends React.Component {
 
                this.props.addOrganization(organization);
                this.formEmpty();
-               console.log(organization);
           } else {
                alert("Debe completar todos los campos!. (nombre minimo 4 caracteres)")
           }

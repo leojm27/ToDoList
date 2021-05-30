@@ -2,7 +2,7 @@ import React from 'react';
 
 export class CountryForm extends React.Component {
 
-    constructor(props){
+    constructor(props){ 
         super(props);
         this.props = props;
         this.state = {

@@ -40,7 +40,6 @@ export class CityForm extends React.Component {
 
                this.props.addCity(city);
                this.formEmpty();
-               console.log(city);
           }else{
                alert("Debe completar todos los campos! (nombre minimo 4 caracteres).")
           }
@@ -79,7 +78,7 @@ export class CityForm extends React.Component {
 
                                    { this.props.countries != null
                                                        
-                                   ? (
+                                   ? ( 
 
                                    this.props.countries.map((item, index) => { 
                                    return <option key={ index } value={ item.id }> 

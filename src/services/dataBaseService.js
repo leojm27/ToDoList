@@ -1,85 +1,97 @@
 import axios from 'axios';
 
+const API_URL = 'https://api-fake-pilar-tecno.herokuapp.com';
+const API_URL_COUNTRIES = `${API_URL}/countries`;
+const API_URL_PLACES = `${API_URL}/places`;
+const API_URL_ORGANIZATIONS = `${API_URL}/organizations`;
+const API_URL_JOBS = `${API_URL}/jobs`;
 
-const DATA_BASE_URL = 'https://api-fake-pilar-tecno.herokuapp.com';
-//const COUNTRIES_URL =  `${DATA_BASE_URL}/countries`;
-//const COUNTRIES_URL =  `${COURSE_API_URL}/instructors/${INSTRUCTOR}`;
 
 class DBService {   
 
-    // countries
+    // COUNTRIES
     getAllCountries() {        
-        return axios.get(`${DATA_BASE_URL}/countries`); 
+        return axios.get(`${API_URL_COUNTRIES}`); 
     }
 
     getCountryById(id) {    
-        return axios.get(`${DATA_BASE_URL}/countries/${id}`); 
+        return axios.get(`${API_URL_COUNTRIES}/${id}`); 
     }
 
     deleteCountry(id) {     
-        return axios.delete(`${DATA_BASE_URL}/countries/${id}`);
+        return axios.delete(`${API_URL_COUNTRIES}/${id}`);
     }
 
     createCountry(country) {
-        return axios.post(`${DATA_BASE_URL}/countries`, country);
+        return axios.post(`${API_URL_COUNTRIES}`, country);
     }
 
-    // FALTA ACTUALIZAR COUNTRY
+    updateCountry(id, country) {
+        return axios.patch(`${API_URL_COUNTRIES}/${id}`, country);
+    }
 
-    // PLACES
+    // PLACES = CITIES
     getAllCities() {        
-        return axios.get(`${DATA_BASE_URL}/places?_expand=countrie`); 
+        return axios.get(`${API_URL_PLACES}?_expand=countrie`); 
     }
 
     getCityById(id) {    
-        return axios.get(`${DATA_BASE_URL}/places/${id}?_expand=countrie`); 
+        return axios.get(`${API_URL_PLACES}/${id}?_expand=countrie`); 
     }
 
     deleteCity(id) {     
-        return axios.delete(`${DATA_BASE_URL}/places/${id}`);   
+        return axios.delete(`${API_URL_PLACES}/${id}`);   
     }
 
     createCity(city) {
-        return axios.post(`${DATA_BASE_URL}/places`, city);
+        return axios.post(`${API_URL_PLACES}`, city);
+    }
+
+    updateCity(id, city) {
+        return axios.patch(`${API_URL_PLACES}/${id}`, city);
     }
 
     // ORGANIZATIONS
     getAllOrganizations() {        
-        return axios.get(`${DATA_BASE_URL}/organizations?_expand=place`); 
+        return axios.get(`${API_URL_ORGANIZATIONS}?_expand=place`); 
     }
 
     getOrganizationById(id) {    
-        return axios.get(`${DATA_BASE_URL}/organizations/${id}?_expand=place`); 
+        return axios.get(`${API_URL_ORGANIZATIONS}/${id}?_expand=place`); 
     }
 
     deleteOrganization(id) {     
-        return axios.delete(`${DATA_BASE_URL}/organizations/${id}`);   
+        return axios.delete(`${API_URL_ORGANIZATIONS}/${id}`);   
     }
 
     createOrganization(organization) {
-        return axios.post(`${DATA_BASE_URL}/organizations`, organization);
+        return axios.post(`${API_URL_ORGANIZATIONS}`, organization);
+    }
+
+    updateOrganization(id, organization) {
+        return axios.patch(`${API_URL_ORGANIZATIONS}/${id}`, organization);
     }
 
     // JOBS
     getAllJobs() {        
-        return axios.get(`${DATA_BASE_URL}/jobs?_expand=organization`); 
+        return axios.get(`${API_URL_JOBS}?_expand=organization`); 
     }
 
     getJobById(id) {    
-        return axios.get(`${DATA_BASE_URL}/jobs/${id}?_expand=organization`); 
+        return axios.get(`${API_URL_JOBS}/${id}?_expand=organization`); 
     }
 
     deleteJob(id) {     
-        return axios.delete(`${DATA_BASE_URL}/jobs/${id}`);   
+        return axios.delete(`${API_URL_JOBS}/${id}`);   
     }
 
     createJob(job) {
-        return axios.post(`${DATA_BASE_URL}/jobs`, job);
+        return axios.post(`${API_URL_JOBS}`, job);
     }
 
-
-
-    
+    updateJob(id, job) {
+        return axios.patch(`${API_URL_JOBS}/${id}`, job);
+    }
 
 }
 

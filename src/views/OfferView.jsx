@@ -46,26 +46,23 @@ export class OfferView extends React.Component {
                     offers: response.data
                }))
                .catch(err => console.log(err))
-
      }
 
      onDelete = async (key) => {
-
           await dataBaseService.deleteJob(key)
                .then(() => this.setState({
                     message: `La Oferta Laboral con ID ${key} se elimino correctamente.`,
-                    success: true
+                    success: false
                }))
                .catch(() => this.setState({
                     message: `No es posible eliminar la Oferta Laboral con ID ${key}.`,
-                    success: false
+                    success: true
                }))
           this.refresh();
           return this.state.message;
      }
 
      addOffers = async (offer) => {
-
           await dataBaseService.createJob(offer)
                .then(() => this.setState({
                     message: `La Oferta Laboral "${offer.position}" se creo correctamente.`,
@@ -82,18 +79,18 @@ export class OfferView extends React.Component {
      render() {
           return (
                <>
-
                     <div className="row">
 
-                         {(this.state.message === "")
-                              ? (null)
-                              : (this.state.success)
-                                   ? (<div className="alert alert-info" role="alert">
+                         {(this.state.message !== "")
+                              ? (this.state.success)
+                                   ? (<div className="alert alert-success" role="alert">
                                         {this.state.message}
                                    </div>)
                                    : (<div className="alert alert-danger" role="alert">
                                         {this.state.message}
-                                   </div>)}
+                                   </div>)
+                              : (null)
+                         }
 
 
                     </div>
@@ -119,7 +116,6 @@ export class OfferView extends React.Component {
 
 
                     </div>
-
                </>
           )
      }

@@ -38,11 +38,11 @@ export class CityView extends React.Component {
     await dataBaseService.createCity(city)
       .then(() => this.setState({
         message: `La Ciudad ${city.name} se creo correctamente.`,
-        success: true
+        success: true,
       }))
       .catch(() => this.setState({
         message: `No es posible crear la Ciudad ${city.name}.`,
-        success: false
+        success: false,
 
       }))
     this.refresh();
@@ -52,11 +52,11 @@ export class CityView extends React.Component {
     await dataBaseService.deleteCity(key)
       .then(() => this.setState({
         message: `La Ciudad con ID ${key} se elimino correctamente.`,
-        success: true
+        success: false,
       }))
       .catch(() => this.setState({
         message: `No es posible eliminar la Ciudad con ID ${key}.`,
-        success: false
+        success: true,
 
       }))
     this.refresh();
@@ -68,15 +68,17 @@ export class CityView extends React.Component {
       <>
         <div className="row">
 
-          {(this.state.message === "")
-            ? (null)
-            : (this.state.success)
-              ? (<div className="alert alert-info" role="alert">
+          {(this.state.message !== "")
+            ? (this.state.success)
+              ? (<div className="alert alert-success" role="alert">
                 {this.state.message}
               </div>)
               : (<div className="alert alert-danger" role="alert">
                 {this.state.message}
-              </div>)}
+              </div>)
+
+            : (null)
+          }
 
 
         </div>

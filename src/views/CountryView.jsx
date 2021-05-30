@@ -32,11 +32,11 @@ export class CountryView extends React.Component {
     await dataBaseService.deleteCountry(key)
       .then(() => this.setState({
         message: `El País con ID ${key} se elimino correctamente.`,
-        success: true
+        success: false
       }))
       .catch(() => this.setState({
         message: `No es posible eliminar el País con ID ${key}.`,
-        success: false
+        success: true
 
       }))
     this.refresh();
@@ -62,15 +62,16 @@ export class CountryView extends React.Component {
       <>
         <div className="row">
 
-          {(this.state.message === "")
-            ? (null)
-            : (this.state.success)
-              ? (<div className="alert alert-info" role="alert">
+          {(this.state.message !== "")
+            ? (this.state.success)
+              ? (<div className="alert alert-success" role="alert">
                 {this.state.message}
               </div>)
               : (<div className="alert alert-danger" role="alert">
                 {this.state.message}
-              </div>)}
+              </div>)
+            : (null)
+          }
 
 
         </div>

@@ -7,6 +7,7 @@ export class OfferTable extends React.Component {
     super(props);
     this.state = {
       isRedirect: false,
+      edit: false,
       index: ""
     }
   }
@@ -14,8 +15,18 @@ export class OfferTable extends React.Component {
   infoBusiness = (id) => {
     this.setState({
       isRedirect: true,
+      edit: false,
       index: id
     });
+  }
+
+  editOffer = (item) => {
+    this.setState({
+      isRedirect: true,
+      edit: true,
+      index: item.id,
+      offer: item
+    })
   }
 
   render() {
@@ -24,7 +35,14 @@ export class OfferTable extends React.Component {
         {
           (this.state.isRedirect === true)
 
-            ? <Redirect to={`/jobs/${this.state.index}`} />
+            ? (!this.state.edit)
+              ? (<Redirect to={`/jobs/${this.state.index}`} />)
+              : (<Redirect
+                to={{
+                  pathname: `/jobs/edit/${this.state.index}`,
+                  state: { offer: this.state.offer }
+                }}
+              />)
 
             : <table className="table">
               <thead>
@@ -53,6 +71,11 @@ export class OfferTable extends React.Component {
                             onClick={
                               () => this.infoBusiness(item.id)
                             }>Info</button>
+
+                          <button type="button" className="btn btn-primary btn-sm m-1"
+                            onClick={
+                              () => this.editOffer(item)
+                            }>Editar</button>
                           <button type="button" className="btn btn-danger btn-sm m-1" onClick={() => this.props.onDelete(item.id)}>Eliminar</button>
                         </td>
                       </tr>

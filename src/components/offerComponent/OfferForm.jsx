@@ -42,7 +42,6 @@ export class OfferForm extends React.Component {
           if ( description.length >= 6 && position.length >= 6 && organizationId !== 0 ){
           this.props.addOffers(offer);
           this.formEmpty();
-          console.log(offer); 
 
           } else {
 
