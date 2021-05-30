@@ -77,13 +77,13 @@ export class CountryView extends React.Component {
         </div>
         <div className="row">
 
-          <div className="col">
+          <div className="col-4">
             <CountryForm
               countries={(this.state.countries) ? this.state.countries : (null)}
               addCountry={this.addCountry} />
           </div>
 
-          <div className="col">
+          <div className="col-8">
             <CountryTable
               countries={(this.state.countries) ? this.state.countries : (null)}
               onDelete={this.deleteCountry} />

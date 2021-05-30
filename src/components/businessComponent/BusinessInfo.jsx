@@ -5,7 +5,7 @@ import dataBaseService from '../../services/dataBaseService';
 export class BusinessInfo extends React.Component {
 
      constructor(props) {
-          super(props);
+          super(props); 
           this.state = {
                description: "",
                organizations: null,

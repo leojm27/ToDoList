@@ -85,7 +85,7 @@ export class CityView extends React.Component {
 
         <div className="row">
 
-          <div className="col">
+          <div className="col-4">
 
             <CityForm
               cities={this.state.cities}
@@ -93,7 +93,7 @@ export class CityView extends React.Component {
               addCity={this.addCity} />
           </div>
 
-          <div className="col">
+          <div className="col-8">
             <CityTable
               cities={this.state.cities}
               onDelete={this.onDelete} />

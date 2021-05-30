@@ -7,13 +7,26 @@ export class BusinessEdit extends React.Component {
      constructor(props) {
           super(props);
           this.state = {
-               description: this.props.location.state.business.name,
-               city: this.props.location.state.business.place.name,
-               business: this.props.location.state.business,
+               success: false,
+               description: '',
+               city: '',
+               organizations: null,
                index: this.props.match.params.id,
           }
      }
 
+     componentDidMount = async () => {
+          await dataBaseService.getOrganizationById(this.state.index)
+               .then(response => this.setState({
+                    organizations: response.data,
+                    description: response.data.name,
+                    city: response.data.place.name,
+                    success: true,
+               }))
+               .catch(() => this.setState({
+                    success: true,
+               }))
+     }
      handleForm = (e) => {
           e.preventDefault();
           this.setState({
@@ -36,12 +49,12 @@ export class BusinessEdit extends React.Component {
           }
      }
 
-     editBusiness = async (id, business) => {
-          await dataBaseService.updateOrganization(id, business)
+     editBusiness = async (id, organization) => {
+          await dataBaseService.updateOrganization(id, organization)
                .then(
                     response => {
                          this.setState({
-                              message: `La Empresa ${business.name} fue Editada correctamente.`,
+                              message: `La Empresa ${organization.name} fue Editada correctamente.`,
                          })
                          alert(this.state.message);
                          this.props.history.push('/business');
@@ -50,7 +63,7 @@ export class BusinessEdit extends React.Component {
                .catch(
                     err => {
                          this.setState({
-                              message: `No es posible Editar la Empresa ${business.name}.`,
+                              message: `No es posible Editar la Empresa ${organization.name}.`,
                          })
                          alert(this.state.message);
                     }
@@ -60,37 +73,55 @@ export class BusinessEdit extends React.Component {
      render() {
           return (
                <>
-                    {<form className="row col align-items-start align-self-start" onSubmit={(e) => this.submitForm(e)}>
-                         <h5>Editar Empresa</h5>
+                    {(this.state.organizations !== null)
+                         ? (<form className="row col align-items-start align-self-start" onSubmit={(e) => this.submitForm(e)}>
+                              <h5>Editar Empresa</h5>
 
-                         <div className="row">
-                              <div className="">
-                                   <label className="col-form-label">Nombre</label>
+                              <div className="row">
+                                   <div className="">
+                                        <label className="col-form-label">Nombre</label>
+                                   </div>
+
+                                   <div className="">
+                                        <input type="text" name="description" value={this.state.description} className="form-control" onChange={(e) => this.handleForm(e)} />
+                                   </div>
                               </div>
 
-                              <div className="">
-                                   <input type="text" name="description" value={this.state.description} className="form-control" onChange={(e) => this.handleForm(e)} />
+                              <div className="row">
+                                   <div>
+                                        <label className=" col-form-label">Ciudad</label>
+                                   </div>
+                                   <div className="">
+                                        <input type="text" disabled name="city" value={this.state.city}
+                                             className="form-control" />
+                                   </div>
                               </div>
-                         </div>
 
-                         <div className="row">
-                              <div>
-                                   <label className=" col-form-label">Ciudad</label>
+                              <div className="row mt-3">
+                                   <div>
+                                        <button className="btn btn-success" type="submit" >Confirmar</button>
+                                        <Link className="btn btn-danger m-2" to="/business">Cancelar</Link>
+                                   </div>
                               </div>
-                              <div className="">
-                                   <input type="text" disabled name="city" value={this.state.city}
-                                        className="form-control"/>
-                              </div>
-                         </div>
 
-                         <div className="row mt-3">
-                              <div>
-                                   <button className="btn btn-success" type="submit" >Confirmar</button>
-                                   <Link className="btn btn-danger m-2" to="/business">Cancelar</Link>
-                              </div>
-                         </div>
-
-                    </form>}
+                         </form>)
+                         : (!this.state.success)
+                              ? (<>
+                                   <div className="row mt-3">
+                                        <h5>Cargando resultados...</h5>
+                                   </div>
+                              </>)
+                              : (<>
+                                   <div className="row mt-3">
+                                        <h5>La Empresa seleccionada con ID {this.state.index} no existe.</h5>
+                                   </div>
+                                   <div className="row mt-3">
+                                        <div className="col">
+                                             <Link className="btn btn-primary m-2" to="/city">Volver</Link>
+                                        </div>
+                                   </div>
+                              </>)
+                    }
                </>
           );
 

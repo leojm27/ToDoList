@@ -37,12 +37,7 @@ export class CityTable extends React.Component {
 
             ? (!this.state.edit)
               ? (<Redirect to={`/city/${this.state.index}`} />)
-              : (<Redirect
-                to={{
-                  pathname: `/city/edit/${this.state.index}`,
-                  state: { city: this.state.city }
-                }}
-              />)
+              : (<Redirect to={`/city/edit/${this.state.index}`} />)
 
             : <table className="table">
               <thead>

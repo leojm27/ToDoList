@@ -16,13 +16,11 @@ import { CityEdit } from './components/cityComponent/CityEdit';
 import { BusinessEdit } from './components/businessComponent/BusinessEdit';
 import { OfferEdit } from './components/offerComponent/OfferEdit';
 
-
 export class App extends React.Component {
 
   constructor() {
     super();
     this.state = {
-
     }
   }
 

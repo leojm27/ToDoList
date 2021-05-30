@@ -9,7 +9,7 @@ export class CountryTable extends React.Component {
       isRedirect: false,
       edit: false,
       index: "",
-      country: [],
+      //country: [],
     }
   }
 
@@ -26,7 +26,7 @@ export class CountryTable extends React.Component {
       isRedirect: true,
       edit: true,
       index: item.id,
-      country: item
+      //country: item
     })
   }
 
@@ -38,12 +38,7 @@ export class CountryTable extends React.Component {
 
             ? (!this.state.edit)
               ? (<Redirect to={`/country/${this.state.index}`} />)
-              : (<Redirect
-                to={{
-                  pathname: `/country/edit/${this.state.index}`,
-                  state: { country: this.state.country }
-                }}
-              />)
+              : (<Redirect to={`/country/edit/${this.state.index}`} />)
 
             : (<table className="table">
               <thead>
@@ -66,7 +61,7 @@ export class CountryTable extends React.Component {
                           onClick={
                             () => this.infoCountry(item.id)
                           }>Info</button>
-
+ 
                         <button type="button" className="btn btn-primary btn-sm m-1"
                           onClick={
                             () => this.editCountry(item)

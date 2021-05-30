@@ -49,12 +49,7 @@ export class BusinessTable extends React.Component {
 
             ? (!this.state.edit)
               ? (<Redirect to={`/business/${this.state.index}`} />)
-              : (<Redirect
-                to={{
-                  pathname: `/business/edit/${this.state.index}`,
-                  state: { business: this.state.business }
-                }}
-              />)
+              : (<Redirect to={`/business/edit/${this.state.index}`} />)
 
             : <table className="table">
               <thead>

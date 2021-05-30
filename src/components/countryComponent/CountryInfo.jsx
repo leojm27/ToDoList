@@ -39,7 +39,7 @@ export class CountryInfo extends React.Component {
                                    ? <tr key={this.state.index}>
                                         <th scope="row">{this.state.country.id}</th>
                                         <td>{this.state.country.name}</td>
-                                   </tr>
+                                   </tr> 
 
                                    :(!this.state.success)
                                         ? (<tr><td colSpan="2" className="text-center">El Pais con ID {this.state.index} no existe.</td></tr>)

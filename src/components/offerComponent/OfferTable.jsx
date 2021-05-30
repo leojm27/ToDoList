@@ -25,7 +25,6 @@ export class OfferTable extends React.Component {
       isRedirect: true,
       edit: true,
       index: item.id,
-      offer: item
     })
   }
 
@@ -37,12 +36,7 @@ export class OfferTable extends React.Component {
 
             ? (!this.state.edit)
               ? (<Redirect to={`/jobs/${this.state.index}`} />)
-              : (<Redirect
-                to={{
-                  pathname: `/jobs/edit/${this.state.index}`,
-                  state: { offer: this.state.offer }
-                }}
-              />)
+              : (<Redirect to={`/jobs/edit/${this.state.index}`} />)
 
             : <table className="table">
               <thead>

@@ -7,11 +7,25 @@ export class CountryEdit extends React.Component {
      constructor(props) {
           super(props);
           this.state = {
-               success: true,
-               description: this.props.location.state.country.name,
-               country: this.props.location.state.country,
+               success: false,
+               description: '',
+               country: null,
                index: this.props.match.params.id,
           }
+     }
+
+     componentDidMount = async () => {
+
+          await dataBaseService.getCountryById(this.state.index)
+               .then(response => this.setState({
+                    country: response.data,
+                    description: response.data.name,
+                    success: true,
+               }))
+               .catch(() => this.setState({
+                    success: true,
+               }))
+
      }
 
      handleForm = (e) => {
@@ -60,27 +74,45 @@ export class CountryEdit extends React.Component {
      render() {
           return (
                <>
-                    {<form className="row col align-items-start align-self-start" onSubmit={(e) => this.submitForm(e)}>
-                         <h5>Editar Pais</h5>
+                    {(this.state.country !== null)
+                         ? (<form className="row col align-items-start align-self-start" onSubmit={(e) => this.submitForm(e)}>
+                              <h5>Editar Pais</h5>
 
-                         <div className="row">
-                              <div className="">
-                                   <label className="col-form-label">Nombre</label>
+                              <div className="row">
+                                   <div className="">
+                                        <label className="col-form-label">Nombre</label>
+                                   </div>
+
+                                   <div className="">
+                                        <input type="text" name="description" value={this.state.description} className="form-control" onChange={(e) => this.handleForm(e)} />
+                                   </div>
                               </div>
 
-                              <div className="">
-                                   <input type="text" name="description" value={this.state.description} className="form-control" onChange={(e) => this.handleForm(e)} />
+                              <div className="row mt-3">
+                                   <div className="col">
+                                        <button className="btn btn-success" type="submit" >Confirmar</button>
+                                        <Link className="btn btn-danger m-2" to="/country">Cancelar</Link>
+                                   </div>
                               </div>
-                         </div>
 
-                         <div className="row mt-3">
-                              <div className="col">
-                                   <button className="btn btn-success" type="submit" >Confirmar</button>
-                                   <Link className="btn btn-danger m-2" to="/country">Cancelar</Link>
-                              </div>
-                         </div>
-
-                    </form>}
+                         </form>)
+                         : (!this.state.success)
+                              ?(<>
+                                   <div className="row mt-3">
+                                        <h5>Cargando resultados...</h5>
+                                   </div>
+                              </>)
+                              :(<>
+                                   <div className="row mt-3">
+                                        <h5>El País seleccionado con ID {this.state.index} no existe.</h5>
+                                   </div>
+                                   <div className="row mt-3">
+                                        <div className="col">
+                                             <Link className="btn btn-primary m-2" to="/country">Volver</Link>
+                                        </div>
+                                   </div>
+                              </>)
+                    }
                </>
           );
 
